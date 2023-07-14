@@ -6,6 +6,7 @@ import {
 import { CreateMemberDto } from './dto/create-member.dto';
 import { MemberRepository } from 'src/shared/repositories/members.respositories';
 import { orderByType } from './entities/orderBy.entity';
+import { UpdateMemberDto } from './dto/update-member.dto';
 
 @Injectable()
 export class MembersService {
@@ -56,11 +57,41 @@ export class MembersService {
     return member;
   }
 
-  // update(id: number, updateMemberDto: UpdateMemberDto) {
-  //   return `This action updates a #${id} member`;
-  // }
+  async update(memberId: string, updateMemberDto: UpdateMemberDto) {
+    const { name, phone } = updateMemberDto;
 
-  remove(id: number) {
-    return `This action removes a #${id} member`;
+    const memberById = await this.membersRepo.findFirst({
+      where: { id: memberId },
+    });
+
+    if (!memberById) {
+      throw new NotFoundException('This user not exist');
+    }
+
+    const member = await this.membersRepo.update({
+      where: { id: memberId },
+      data: {
+        name,
+        phone,
+      },
+    });
+
+    return member;
+  }
+
+  async remove(memberId: string) {
+    const member = await this.membersRepo.delete({
+      where: { id: memberId },
+    });
+
+    return;
+  }
+
+  private async findById(memberId: string) {
+    const memberById = await this.membersRepo.findFirst({
+      where: { id: memberId },
+    });
+
+    return memberById;
   }
 }

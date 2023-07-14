@@ -21,4 +21,12 @@ export class MemberRepository {
   findFirst(findOneDto: Prisma.MembersFindFirstArgs) {
     return this.prismaService.members.findFirst(findOneDto);
   }
+
+  update(updateDto: Prisma.MembersUpdateArgs) {
+    return this.prismaService.members.update(updateDto);
+  }
+
+  delete(deleteDto: Prisma.MembersDeleteArgs) {
+    return this.prismaService.members.delete(deleteDto);
+  }
 }

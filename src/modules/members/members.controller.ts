@@ -9,8 +9,9 @@ import {
 } from '@nestjs/common';
 import { MembersService } from './members.service';
 import { CreateMemberDto } from './dto/create-member.dto';
-import { HttpCode, Query } from '@nestjs/common/decorators';
+import { HttpCode, Patch, Query } from '@nestjs/common/decorators';
 import { orderByType } from './entities/orderBy.entity';
+import { UpdateMemberDto } from './dto/update-member.dto';
 
 @Controller('members')
 export class MembersController {
@@ -32,13 +33,16 @@ export class MembersController {
     return this.membersService.findOne(memberId);
   }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateMemberDto: UpdateMemberDto) {
-  //   return this.membersService.update(+id, updateMemberDto);
-  // }
+  @Patch(':id')
+  update(
+    @Param('id') memberId: string,
+    @Body() updateMemberDto: UpdateMemberDto,
+  ) {
+    return this.membersService.update(memberId, updateMemberDto);
+  }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.membersService.remove(+id);
+  remove(@Param('id') memberId: string) {
+    return this.membersService.remove(memberId);
   }
 }
