@@ -13,4 +13,8 @@ export class MemberRepository {
   findUnique(findUniqueDto: Prisma.MembersFindUniqueArgs) {
     return this.prismaService.members.findUnique(findUniqueDto);
   }
+
+  findMany(findManyDto: Prisma.MembersFindManyArgs) {
+    return this.prismaService.members.findMany(findManyDto);
+  }
 }

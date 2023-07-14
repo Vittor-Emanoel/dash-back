@@ -1,7 +1,7 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateMemberDto } from './dto/create-member.dto';
-import { UpdateMemberDto } from './dto/update-member.dto';
 import { MemberRepository } from 'src/shared/repositories/members.respositories';
+import { orderByType } from './entities/orderBy.entity';
 
 @Injectable()
 export class MembersService {
@@ -28,17 +28,25 @@ export class MembersService {
     return member;
   }
 
-  findAll() {
-    return `This action returns all members`;
+  async findAll(orderBy: orderByType) {
+    const members = await this.membersRepo.findMany({
+      orderBy: [
+        {
+          name: orderBy,
+        },
+      ],
+    });
+
+    return members;
   }
 
   findOne(id: number) {
     return `This action returns a #${id} member`;
   }
 
-  update(id: number, updateMemberDto: UpdateMemberDto) {
-    return `This action updates a #${id} member`;
-  }
+  // update(id: number, updateMemberDto: UpdateMemberDto) {
+  //   return `This action updates a #${id} member`;
+  // }
 
   remove(id: number) {
     return `This action removes a #${id} member`;
