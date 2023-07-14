@@ -18,3 +18,11 @@ model Users {
 
   @@map("users")
 }
+
+model Members {
+  id    String @id @default(uuid())
+  name  String
+  phone String @unique
+
+  @@map("members")
+}
