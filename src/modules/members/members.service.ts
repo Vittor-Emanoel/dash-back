@@ -1,4 +1,8 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { MemberRepository } from 'src/shared/repositories/members.respositories';
 import { orderByType } from './entities/orderBy.entity';
@@ -40,8 +44,16 @@ export class MembersService {
     return members;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} member`;
+  async findOne(memberId: string) {
+    const member = await this.membersRepo.findFirst({
+      where: { id: memberId },
+    });
+
+    if (!member) {
+      throw new NotFoundException('This user not exist');
+    }
+
+    return member;
   }
 
   // update(id: number, updateMemberDto: UpdateMemberDto) {

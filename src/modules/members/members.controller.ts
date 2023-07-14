@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  ParseUUIDPipe,
+} from '@nestjs/common';
 import { MembersService } from './members.service';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { HttpCode, Query } from '@nestjs/common/decorators';
@@ -20,8 +28,8 @@ export class MembersController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.membersService.findOne(+id);
+  findOne(@Param('id', ParseUUIDPipe) memberId: string) {
+    return this.membersService.findOne(memberId);
   }
 
   // @Patch(':id')

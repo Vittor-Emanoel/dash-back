@@ -17,4 +17,8 @@ export class MemberRepository {
   findMany(findManyDto: Prisma.MembersFindManyArgs) {
     return this.prismaService.members.findMany(findManyDto);
   }
+
+  findFirst(findOneDto: Prisma.MembersFindFirstArgs) {
+    return this.prismaService.members.findFirst(findOneDto);
+  }
 }
