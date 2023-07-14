@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateMemberDto } from './dto/create-member.dto';
-import { MemberRepository } from 'src/shared/repositories/members.respositories';
+import { MemberRepository } from 'src/shared/repositories/members.repositories';
 import { orderByType } from './entities/orderBy.entity';
 import { UpdateMemberDto } from './dto/update-member.dto';
 
@@ -80,18 +80,10 @@ export class MembersService {
   }
 
   async remove(memberId: string) {
-    const member = await this.membersRepo.delete({
+    await this.membersRepo.delete({
       where: { id: memberId },
     });
 
     return;
-  }
-
-  private async findById(memberId: string) {
-    const memberById = await this.membersRepo.findFirst({
-      where: { id: memberId },
-    });
-
-    return memberById;
   }
 }
