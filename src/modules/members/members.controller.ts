@@ -12,8 +12,8 @@ import { CreateMemberDto } from './dto/create-member.dto';
 import { HttpCode, Patch, Query } from '@nestjs/common/decorators';
 import { orderByType } from './entities/orderBy.entity';
 import { UpdateMemberDto } from './dto/update-member.dto';
-import { Auth } from 'src/decorators/auth.decorators';
-import { Role } from 'src/decorators/roles.decorators';
+import { Auth } from 'src/shared/decorators/auth.decorators';
+import { Role } from 'src/shared/decorators/roles.decorators';
 
 @Controller('members')
 export class MembersController {
