@@ -1,4 +1,11 @@
-import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import {
+  IsEmail,
+  IsEnum,
+  IsNotEmpty,
+  IsString,
+  MinLength,
+} from 'class-validator';
+import { Role } from 'src/decorators/roles.decorators';
 
 export class SignupDto {
   @IsString()
@@ -14,4 +21,8 @@ export class SignupDto {
   @IsNotEmpty()
   @MinLength(8)
   password: string;
+
+  @IsEnum(Role)
+  @IsNotEmpty()
+  role: Role;
 }

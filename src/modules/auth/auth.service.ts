@@ -34,12 +34,21 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    const accessToken = await this.generateAccessToken(user.id);
+    const payload = {
+      sub: user.id,
+      user: {
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    };
+
+    const accessToken = await this.jwtService.signAsync(payload);
 
     return { accessToken };
   }
   async signup(signupDto: SignupDto) {
-    const { name, email, password } = signupDto;
+    const { name, email, password, role } = signupDto;
 
     const emailTaken = await this.userRepo.findUnique({
       where: { email },
@@ -57,15 +66,25 @@ export class AuthService {
         name,
         email,
         password: hashedPassword,
+        role,
       },
     });
 
-    const accessToken = await this.generateAccessToken(user.id);
+    const payload = {
+      sub: user.id,
+      user: {
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    };
+
+    const accessToken = await this.jwtService.signAsync(payload);
 
     return { accessToken };
   }
 
-  private generateAccessToken(userId: string) {
-    return this.jwtService.signAsync({ sub: userId });
-  }
+  // private generateAccessToken(payload: string) {
+  //   return this.jwtService.signAsync(payload);
+  // }
 }
