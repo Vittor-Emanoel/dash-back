@@ -17,6 +17,8 @@ model Users {
   password String
   role     String
 
+  avatar_url String
+
   @@map("users")
 }
 
