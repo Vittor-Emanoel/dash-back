@@ -6,9 +6,10 @@ import { DatabaseModule } from './shared/database/prisma.module';
 import { MembersModule } from './modules/members/members.module';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { UploadModule } from './modules/upload/upload.module';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
-  imports: [AuthModule, DatabaseModule, MembersModule, UploadModule],
+  imports: [AuthModule, DatabaseModule, MembersModule, UploadModule, UsersModule],
   controllers: [],
   providers: [
     {

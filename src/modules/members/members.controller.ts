@@ -6,6 +6,7 @@ import {
   Param,
   Delete,
   ParseUUIDPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { MembersService } from './members.service';
 import { CreateMemberDto } from './dto/create-member.dto';
@@ -14,6 +15,7 @@ import { orderByType } from './entities/orderBy.entity';
 import { UpdateMemberDto } from './dto/update-member.dto';
 import { Auth } from 'src/shared/decorators/auth.decorators';
 import { Role } from 'src/shared/decorators/roles.decorators';
+import { AuthGuard } from 'src/shared/guards/auth.guard';
 
 @Controller('members')
 export class MembersController {
@@ -21,13 +23,14 @@ export class MembersController {
 
   @Post()
   @Auth(Role.ADMIN)
+  @UseGuards(AuthGuard)
   @HttpCode(201)
   create(@Body() createMemberDto: CreateMemberDto) {
     return this.membersService.create(createMemberDto);
   }
 
   @Get()
-  @Auth(Role.ADMIN)
+  @UseGuards(AuthGuard)
   findAll(@Query('orderBy') orderBy: orderByType) {
     return this.membersService.findAll(orderBy);
   }
