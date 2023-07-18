@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { FileDTO } from '../users/dto/upload.dto';
 import { createClient } from '@supabase/supabase-js';
 import { UserRepository } from 'src/shared/repositories/users.respositories';
+import { FileDTO } from './dto/upload.dto';
 
 @Injectable()
-export class UploadService {
+export class UserService {
   constructor(private readonly usersRepo: UserRepository) {}
 
   async upload(editFile: FileDTO) {

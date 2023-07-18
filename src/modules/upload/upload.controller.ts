@@ -7,7 +7,7 @@ import {
 import { UploadService } from './upload.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { IsPublic } from 'src/shared/decorators/isPublic';
-import { FileDTO } from './dto/upload.dto';
+import { FileDTO } from '../users/dto/upload.dto';
 
 @IsPublic()
 @Controller('upload')
@@ -17,7 +17,9 @@ export class UploadController {
   @Post('/')
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile() file: FileDTO) {
-    const result = await this.uploadService.upload(file);
+    const editFile = { ...file, originalname: 'atavar' };
+
+    const result = await this.uploadService.upload(editFile);
 
     return result;
   }

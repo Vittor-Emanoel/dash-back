@@ -10,7 +10,6 @@ import { Request } from 'express';
 import { env } from 'src/shared/config/env';
 import { IS_PUBLIC_KEY } from '../decorators/isPublic';
 
-
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(private jwtService: JwtService, private reflector: Reflector) {}
@@ -38,7 +37,7 @@ export class AuthGuard implements CanActivate {
         secret: env.jwtSecret,
       });
 
-      request['user'] = payload.user;
+      request['user'] = payload;
     } catch {
       throw new UnauthorizedException();
     }

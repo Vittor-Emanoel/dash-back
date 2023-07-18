@@ -25,4 +25,7 @@ export class SignupDto {
   @IsEnum(Role)
   @IsNotEmpty()
   role: Role;
+
+  @IsString()
+  avatar_url?: string;
 }
