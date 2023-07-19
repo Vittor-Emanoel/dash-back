@@ -22,10 +22,22 @@ model Users {
   @@map("users")
 }
 
+model Churchs {
+  id       String    @id @default(uuid())
+  name     String
+  shepherd String
+  Members  Members[]
+
+  @@map("churchs")
+}
+
 model Members {
   id    String @id @default(uuid())
   name  String
   phone String @unique
+
+  church_Id String
+  church_id Churchs @relation(fields: [church_Id], references: [id])
 
   @@map("members")
 }

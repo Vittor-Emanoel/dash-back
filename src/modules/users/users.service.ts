@@ -8,9 +8,8 @@ export class UserService {
   constructor(private readonly usersRepo: UserRepository) {}
 
   async upload(editFile: FileDTO) {
-    const supabaseURL = 'https://ebawimowasvtgwigflfp.supabase.co';
-    const supabaseKEY =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImViYXdpbW93YXN2dGd3aWdmbGZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODk2MTg4NjksImV4cCI6MjAwNTE5NDg2OX0.HlGXZtwGUcBsGufgM3F01fLGOyfrlYucp3uY0kFi4iE';
+    const supabaseURL = '';
+    const supabaseKEY = '';
 
     const supabase = createClient(supabaseURL, supabaseKEY, {
       auth: {

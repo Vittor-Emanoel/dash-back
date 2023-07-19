@@ -5,11 +5,11 @@ import { AuthModule } from './modules/auth/auth.module';
 import { DatabaseModule } from './shared/database/prisma.module';
 import { MembersModule } from './modules/members/members.module';
 import { AuthGuard } from './shared/guards/auth.guard';
-import { UploadModule } from './modules/upload/upload.module';
 import { UsersModule } from './modules/users/users.module';
+import { ChurchsModule } from './modules/churchs/churchs.module';
 
 @Module({
-  imports: [AuthModule, DatabaseModule, MembersModule, UploadModule, UsersModule],
+  imports: [AuthModule, DatabaseModule, MembersModule, UsersModule, ChurchsModule],
   controllers: [],
   providers: [
     {

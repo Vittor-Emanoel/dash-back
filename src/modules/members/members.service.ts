@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { MemberRepository } from 'src/shared/repositories/members.repositories';
-import { orderByType } from './entities/orderBy.entity';
+import { orderByType } from '../../shared/models/orderBy.entity';
 import { UpdateMemberDto } from './dto/update-member.dto';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class MembersService {
   constructor(private readonly membersRepo: MemberRepository) {}
 
   async create(createMemberDto: CreateMemberDto) {
-    const { name, phone } = createMemberDto;
+    const { name, phone, church_Id } = createMemberDto;
 
     const memberExist = await this.membersRepo.findUnique({
       where: { phone },
@@ -27,6 +27,7 @@ export class MembersService {
       data: {
         name,
         phone,
+        church_Id,
       },
     });
 

@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsPhoneNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsPhoneNumber, IsString, IsUUID } from 'class-validator';
 
 export class CreateMemberDto {
   @IsString()
@@ -9,4 +9,9 @@ export class CreateMemberDto {
   @IsNotEmpty()
   @IsPhoneNumber('BR')
   phone: string;
+
+  @IsUUID()
+  @IsString()
+  @IsNotEmpty()
+  church_Id: string;
 }
