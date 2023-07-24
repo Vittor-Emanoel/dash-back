@@ -36,6 +36,12 @@ export class MembersService {
 
   async findAll(orderBy: orderByType) {
     const members = await this.membersRepo.findMany({
+      select: {
+        id: true,
+        name: true,
+        phone: true,
+        church_id: true,
+      },
       orderBy: [
         {
           name: orderBy,
