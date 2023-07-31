@@ -15,7 +15,7 @@ import { orderByType } from '../../shared/models/orderBy.entity';
 import { UpdateMemberDto } from './dto/update-member.dto';
 import { Auth } from 'src/shared/decorators/auth.decorators';
 import { Role } from 'src/shared/decorators/roles.decorators';
-import { AuthGuard } from 'src/shared/guards/auth.guard';
+import { AuthGuard } from 'src/modules/auth/auth.guard';
 
 @Controller('members')
 export class MembersController {

@@ -34,16 +34,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    const payload = {
-      sub: user.id,
-      user: {
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      },
-    };
-
-    const accessToken = await this.jwtService.signAsync(payload);
+    const accessToken = await this.generateAccessToken(user.id);
 
     return { accessToken };
   }
@@ -71,21 +62,11 @@ export class AuthService {
       },
     });
 
-    const payload = {
-      sub: user.id,
-      user: {
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      },
-    };
-
-    const accessToken = await this.jwtService.signAsync(payload);
+    const accessToken = await this.generateAccessToken(user.id);
 
     return { accessToken };
   }
-
-  // private generateAccessToken(payload: string) {
-  //   return this.jwtService.signAsync(payload);
-  // }
+  private generateAccessToken(userId: string) {
+    return this.jwtService.signAsync({ sub: userId });
+  }
 }

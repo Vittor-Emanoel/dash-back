@@ -15,7 +15,7 @@ import { CreateChurchDto } from './dto/create-church.dto';
 import { UpdateChurchDto } from './dto/update-church.dto';
 import { Auth } from 'src/shared/decorators/auth.decorators';
 import { Role } from 'src/shared/decorators/roles.decorators';
-import { AuthGuard } from 'src/shared/guards/auth.guard';
+import { AuthGuard } from 'src/modules/auth/auth.guard';
 import { orderByType } from 'src/shared/models/orderBy.entity';
 
 @Controller('churchs')
