@@ -1,5 +1,9 @@
-import { Flex, Text, Input, Icon, Image } from "@chakra-ui/react";
-import { RiSearchLine } from "react-icons/ri";
+import { Flex, Text, Input, Icon, HStack, Box, Avatar } from "@chakra-ui/react";
+import {
+  RiNotificationLine,
+  RiSearchLine,
+  RiUserAddLine,
+} from "react-icons/ri";
 
 export function Header() {
   return (
@@ -12,11 +16,10 @@ export function Header() {
       mt="4"
       px="6"
       align="center"
-      border="1px solid red"
     >
       <Text fontSize="3xl" fontWeight="bold" letterSpacing="tight" w="64">
         admsa
-        <Text as="span" ml="1" color="pink.500">
+        <Text as="span" ml="1" color="blue.500">
           .
         </Text>
       </Text>
@@ -46,18 +49,33 @@ export function Header() {
         <Icon as={RiSearchLine} fontSize="20" />
       </Flex>
 
-      <Flex flex="1" border="1px solid red">
-        <Image
-          borderRadius="full"
-          boxSize="50px"
-          src="https://bit.ly/dan-abramov"
-          alt="Dan Abramov"
-        />
-        <Flex ml="30px" flexDirection="column">
-          <Text fontWeight="bold" letterSpacing="wide" as="span">
-            Vittor
-          </Text>
-          <Text as="span">Secretário</Text>
+      <Flex align="center" ml="auto">
+        <HStack
+          spacing="4"
+          mx="8"
+          pr="8"
+          py="1"
+          color="gray.300"
+          borderRightWidth="1px"
+          borderColor="gray.700"
+        >
+          <Icon as={RiNotificationLine} fontSize={20} />
+          <Icon as={RiUserAddLine} fontSize={20} />
+        </HStack>
+
+        <Flex align="center">
+          <Box mr="4" textAlign="right">
+            <Text>Vittor Emanoel</Text>
+            <Text color="gray.300" fontSize="small">
+              vittore.dev@gmail.com
+            </Text>
+          </Box>
+
+          <Avatar
+            size="md"
+            name="Vittor Emanoel"
+            src="https://github.com/Vittor-Emanoel.png"
+          />
         </Flex>
       </Flex>
     </Flex>
