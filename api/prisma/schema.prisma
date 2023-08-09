@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id       String @id @default(uuid())
+  name     String
+  email    String @unique
+  password String
+  role     String
+
+  avatar_url String
+
+  @@map("users")
+}
+
+model Churchs {
+  id       String    @id @default(uuid())
+  name     String
+  shepherd String
+  Members  Members[]
+  Events   Events[]
+
+  @@map("churchs")
+}
+
+model Events {
+  id        String   @id @default(uuid())
+  name      String
+  date      DateTime
+  church_Id String
+  church    Churchs  @relation(fields: [church_Id], references: [id])
+
+  attendees Attendance[]
+
+  @@map("events")
+}
+
+model Members {
+  id    String @id @default(uuid())
+  name  String
+  phone String @unique
+
+  church    String
+  church_id Churchs @relation(fields: [church], references: [id])
+
+  attendances Attendance[]
+
+  @@map("members")
+}
+
+model Attendance {
+  id        String   @id @default(uuid())
+  memberId  String
+  eventId   String
+  present   Boolean
+  createdAt DateTime @default(now())
+  member    Members  @relation(fields: [memberId], references: [id])
+  event     Events   @relation(fields: [eventId], references: [id])
+
+  @@map("attendances")
+}
