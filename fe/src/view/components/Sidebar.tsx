@@ -1,4 +1,6 @@
-import { Box, Stack, Text, Link, Icon } from "@chakra-ui/react";
+import { Box, Stack, Text, Link as ChakraLink, Icon } from "@chakra-ui/react";
+import { Link as ReactRouterLink } from "react-router-dom";
+
 import {
   RiContactsLine,
   RiDashboardLine,
@@ -14,19 +16,29 @@ export function Sidebar() {
           <Text fontWeight="bold" color="gray.400" fontSize="small">
             GERAL
             <Stack spacing="4" mt="8" align="stretch">
-              <Link display="flex" alignItems="center">
+              <ChakraLink
+                display="flex"
+                alignItems="center"
+                as={ReactRouterLink}
+                to="/dashboard"
+              >
                 <Icon as={RiDashboardLine} fontSize="20" />
                 <Text ml="4" fontWeight="medium">
                   Dashboard
                 </Text>
-              </Link>
+              </ChakraLink>
 
-              <Link display="flex" alignItems="center">
+              <ChakraLink
+                display="flex"
+                alignItems="center"
+                as={ReactRouterLink}
+                to="/members"
+              >
                 <Icon as={RiContactsLine} fontSize="20" />
                 <Text ml="4" fontWeight="medium">
                   Membros
                 </Text>
-              </Link>
+              </ChakraLink>
             </Stack>
           </Text>
         </Box>
@@ -35,19 +47,29 @@ export function Sidebar() {
           <Text fontWeight="bold" color="gray.400" fontSize="small">
             ADMINISTRATIVO
             <Stack spacing="4" mt="8" align="stretch">
-              <Link display="flex" alignItems="center">
+              <ChakraLink
+                display="flex"
+                alignItems="center"
+                as={ReactRouterLink}
+                to="/members"
+              >
                 <Icon as={RiMegaphoneLine} fontSize="20" />
                 <Text ml="4" fontWeight="medium">
                   Chamada
                 </Text>
-              </Link>
+              </ChakraLink>
 
-              <Link display="flex" alignItems="center">
+              <ChakraLink
+                display="flex"
+                alignItems="center"
+                as={ReactRouterLink}
+                to="/members"
+              >
                 <Icon as={RiInboxArchiveLine} fontSize="20" />
                 <Text ml="4" fontWeight="medium">
                   Requerimentos
                 </Text>
-              </Link>
+              </ChakraLink>
             </Stack>
           </Text>
         </Box>
