@@ -18,7 +18,7 @@ export function SignIn() {
 
           <Input name="password" label="Senha" type="password" />
         </Stack>
-        <Button type="submit" mt="6" colorScheme="pink" size="lg">
+        <Button type="submit" mt="6" colorScheme="blue" size="lg">
           Entrar
         </Button>
       </Flex>
