@@ -4,53 +4,42 @@ import {
   Post,
   Body,
   Patch,
+  Query,
   Param,
   Delete,
-  UseGuards,
-  HttpCode,
-  Query,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { ChurchsService } from './churchs.service';
 import { CreateChurchDto } from './dto/create-church.dto';
 import { UpdateChurchDto } from './dto/update-church.dto';
-import { Auth } from 'src/shared/decorators/auth.decorators';
-import { Role } from 'src/shared/decorators/roles.decorators';
-import { AuthGuard } from 'src/modules/auth/auth.guard';
 import { orderByType } from 'src/shared/models/orderBy.entity';
 
 @Controller('churchs')
 export class ChurchsController {
   constructor(private readonly churchsService: ChurchsService) {}
 
-  @Post('/')
-  @Auth(Role.ADMIN)
-  @UseGuards(AuthGuard)
-  @HttpCode(201)
+  @Post()
   create(@Body() createChurchDto: CreateChurchDto) {
-    const { name, shepherd } = createChurchDto;
-
-    return this.churchsService.create({ name, shepherd });
+    return this.churchsService.create(createChurchDto);
   }
 
   @Get()
-  @Auth(Role.ADMIN)
-  @UseGuards(AuthGuard)
-  findAll() {
-    return this.churchsService.findAll();
+  findAll(@Query() orderBy: orderByType) {
+    return this.churchsService.findAll(orderBy);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.churchsService.findOne(+id);
+  findOne(@Param('id', ParseUUIDPipe) churchId: string) {
+    return this.churchsService.findOne(churchId);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateChurchDto: UpdateChurchDto) {
-    return this.churchsService.update(+id, updateChurchDto);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updateChurchDto: UpdateChurchDto) {
+  //   return this.churchsService.update(+id, updateChurchDto);
+  // }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.churchsService.remove(+id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.churchsService.remove(+id);
+  // }
 }

@@ -1,4 +1,4 @@
-export enum orderByType {
-  DESC = 'desc',
-  ASC = 'asc',
+export interface orderByType {
+  field: 'name' | 'churchId';
+  direction: 'desc';
 }

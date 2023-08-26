@@ -1,23 +1,22 @@
-import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
+
+import { IsPublic } from 'src/shared/decorators/IsPublic';
 import { SignInDto } from './dto/signin.dto';
 import { SignupDto } from './dto/signup.dto';
-import { IsPublic } from 'src/shared/decorators/isPublic';
 
+@IsPublic()
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @IsPublic()
-  @HttpCode(HttpStatus.CREATED)
-  @Post('login')
-  async signIn(@Body() signInDto: SignInDto) {
-    return this.authService.signIn(signInDto);
+  @Post('signin')
+  signin(@Body() signinDto: SignInDto) {
+    return this.authService.signIn(signinDto);
   }
 
-  @IsPublic()
-  @Post('register')
-  async signup(@Body() signupDto: SignupDto) {
+  @Post('signup')
+  signup(@Body() signupDto: SignupDto) {
     return this.authService.signup(signupDto);
   }
 }

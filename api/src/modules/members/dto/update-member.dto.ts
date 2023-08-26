@@ -1,12 +1,4 @@
-import { IsNotEmpty, IsPhoneNumber, IsString } from 'class-validator';
+import { PartialType } from '@nestjs/swagger';
+import { CreateMemberDto } from './create-member.dto';
 
-export class UpdateMemberDto {
-  @IsString()
-  @IsNotEmpty()
-  name: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @IsPhoneNumber('BR')
-  phone: string;
-}
+export class UpdateMemberDto extends PartialType(CreateMemberDto) {}

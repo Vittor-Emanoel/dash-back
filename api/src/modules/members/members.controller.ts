@@ -3,19 +3,21 @@ import {
   Get,
   Post,
   Body,
+  Patch,
   Param,
   Delete,
   ParseUUIDPipe,
+  Query,
   UseGuards,
+  HttpCode,
 } from '@nestjs/common';
-import { MembersService } from './members.service';
+import { MembersService } from './services/members.service';
 import { CreateMemberDto } from './dto/create-member.dto';
-import { HttpCode, Patch, Query } from '@nestjs/common/decorators';
-import { orderByType } from '../../shared/models/orderBy.entity';
 import { UpdateMemberDto } from './dto/update-member.dto';
+import { orderByType } from 'src/shared/models/orderBy.entity';
 import { Auth } from 'src/shared/decorators/auth.decorators';
+import { AuthGuard } from '../auth/auth.guard';
 import { Role } from 'src/shared/decorators/roles.decorators';
-import { AuthGuard } from 'src/modules/auth/auth.guard';
 
 @Controller('members')
 export class MembersController {
@@ -29,18 +31,20 @@ export class MembersController {
     return this.membersService.create(createMemberDto);
   }
 
-  @Get()
-  @UseGuards(AuthGuard)
-  findAll(@Query('orderBy') orderBy: orderByType) {
+  @Get('')
+  @HttpCode(200)
+  findAll(@Query() orderBy: orderByType) {
     return this.membersService.findAll(orderBy);
   }
 
   @Get(':id')
+  @HttpCode(200)
   findOne(@Param('id', ParseUUIDPipe) memberId: string) {
-    return this.membersService.findOne(memberId);
+    return this.membersService.findById(memberId);
   }
 
   @Patch(':id')
+  @HttpCode(201)
   update(
     @Param('id') memberId: string,
     @Body() updateMemberDto: UpdateMemberDto,
@@ -49,6 +53,7 @@ export class MembersController {
   }
 
   @Delete(':id')
+  @HttpCode(200)
   remove(@Param('id') memberId: string) {
     return this.membersService.remove(memberId);
   }

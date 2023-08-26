@@ -1,7 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+  ConflictException,
+} from '@nestjs/common';
 import { CreateChurchDto } from './dto/create-church.dto';
 import { UpdateChurchDto } from './dto/update-church.dto';
 import { ChurchsRepository } from 'src/shared/repositories/churchs.repositories';
+import { orderByType } from 'src/shared/models/orderBy.entity';
 
 @Injectable()
 export class ChurchsService {
@@ -9,6 +15,14 @@ export class ChurchsService {
 
   async create(createChurchDto: CreateChurchDto) {
     const { name, shepherd } = createChurchDto;
+
+    const churchExists = await this.churchsRepo.findUnique({
+      where: { id: name },
+    });
+
+    if (!churchExists) {
+      throw new ConflictException('This church already exists');
+    }
 
     const church = await this.churchsRepo.create({
       data: {
@@ -19,34 +33,56 @@ export class ChurchsService {
 
     return church;
   }
-  async findAll() {
-    const church = await this.churchsRepo.findAll({
+
+  async findAll(orderBy: orderByType) {
+    const churchs = await this.churchsRepo.findAll({
       select: {
         id: true,
         name: true,
         shepherd: true,
-        Members: {
-          select: {
-            id: true,
-            name: true,
-            phone: true,
-          },
-        },
       },
+      orderBy: [
+        {
+          [orderBy.field]: orderBy.direction,
+        },
+      ],
     });
+
+    return churchs;
+  }
+
+  async findOne(churchId: string) {
+    const church = await this.churchsRepo.findUnique({
+      where: { id: churchId },
+    });
+
+    if (!church) {
+      throw new NotFoundException('This is church not exist');
+    }
 
     return church;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} church`;
+  async update(churchId: string, updateChurchDto: UpdateChurchDto) {
+    const { name, shepherd } = updateChurchDto;
+
+    const churchExists = await this.churchsRepo.findFirst({
+      where: { id: churchId },
+    });
+
+    if (!churchExists) {
+      throw new NotFoundException('This is church not exists');
+    }
+
+    const church = await this.churchsRepo.create({
+      data: {
+        name,
+        shepherd,
+      },
+    });
   }
 
-  update(id: number, updateChurchDto: UpdateChurchDto) {
-    return `This action updates a #${id} church`;
-  }
-
-  remove(id: number) {
+  async remove(id: number) {
     return `This action removes a #${id} church`;
   }
 }

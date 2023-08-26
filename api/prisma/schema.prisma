@@ -6,8 +6,15 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+  SECRETARY
+  FINANCE
 }
 
 model Users {
@@ -15,33 +22,26 @@ model Users {
   name     String
   email    String @unique
   password String
-  role     String
-
-  avatar_url String
+  role     Role   @default(USER)
 
   @@map("users")
 }
 
+// model Offices {
+//   id       String    @id @default(uuid())
+//   name     String    @unique
+//   Members  Members[]
+
+//   @@map("offices")
+// }
+
 model Churchs {
   id       String    @id @default(uuid())
-  name     String
+  name     String    @unique
   shepherd String
   Members  Members[]
-  Events   Events[]
 
   @@map("churchs")
-}
-
-model Events {
-  id        String   @id @default(uuid())
-  name      String
-  date      DateTime
-  church_Id String
-  church    Churchs  @relation(fields: [church_Id], references: [id])
-
-  attendees Attendance[]
-
-  @@map("events")
 }
 
 model Members {
@@ -49,22 +49,13 @@ model Members {
   name  String
   phone String @unique
 
-  church    String
-  church_id Churchs @relation(fields: [church], references: [id])
+  church   Churchs @relation(fields: [churchId], references: [id])
+  churchId String
 
-  attendances Attendance[]
+  street     String
+  city       String
+  state      String
+  postalCode String
 
   @@map("members")
-}
-
-model Attendance {
-  id        String   @id @default(uuid())
-  memberId  String
-  eventId   String
-  present   Boolean
-  createdAt DateTime @default(now())
-  member    Members  @relation(fields: [memberId], references: [id])
-  event     Events   @relation(fields: [eventId], references: [id])
-
-  @@map("attendances")
 }

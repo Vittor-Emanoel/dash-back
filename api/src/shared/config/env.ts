@@ -10,21 +10,11 @@ class Env {
   @IsNotEmpty()
   @NotEquals('unsecure_jwt_secret')
   jwtSecret: string;
-
-  @IsString()
-  @IsNotEmpty()
-  supabaseURL: string;
-
-  @IsString()
-  @IsNotEmpty()
-  supabaseKEY: string;
 }
 
 export const env: Env = plainToInstance(Env, {
   dbURL: process.env.DATABASE_URL,
   jwtSecret: process.env.JWT_SECRET,
-  supabaseURL: process.env.SUPABASEURL,
-  supabaseKEY: process.env.SUPABASEKEY,
 });
 
 const errors = validateSync(env);

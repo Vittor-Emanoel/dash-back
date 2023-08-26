@@ -4,17 +4,18 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { SignInDto } from './dto/signin.dto';
-import { UserRepository } from 'src/shared/repositories/users.respositories';
+
 import { SignupDto } from './dto/signup.dto';
 import { JwtService } from '@nestjs/jwt';
 
 import { compare, hash } from 'bcryptjs';
 import { IPayload } from './entity/payload';
+import { UsersRepository } from 'src/shared/repositories/users.repositories';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly userRepo: UserRepository,
+    private readonly userRepo: UsersRepository,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -36,17 +37,19 @@ export class AuthService {
     }
 
     const payload: IPayload = {
+      sub: user.id,
       name: user.name,
       email: user.email,
       role: user.role,
     };
 
-    const accessToken = await this.generateAccessToken(user.id, payload);
+    const accessToken = await this.generateAccessToken(payload);
 
     return { accessToken };
   }
+
   async signup(signupDto: SignupDto) {
-    const { name, email, password, role, avatar_url } = signupDto;
+    const { name, email, password } = signupDto;
 
     const emailTaken = await this.userRepo.findUnique({
       where: { email },
@@ -64,22 +67,21 @@ export class AuthService {
         name,
         email,
         password: hashedPassword,
-        role,
-        avatar_url,
       },
     });
 
     const payload: IPayload = {
+      sub: user.id,
       name: user.name,
       email: user.email,
       role: user.role,
     };
 
-    const accessToken = await this.generateAccessToken(user.id, payload);
+    const accessToken = await this.generateAccessToken(payload);
 
     return { accessToken };
   }
-  private generateAccessToken(userId: string, payload: IPayload) {
-    return this.jwtService.signAsync({ sub: userId, payload });
+  private generateAccessToken(payload: IPayload) {
+    return this.jwtService.signAsync(payload);
   }
 }
