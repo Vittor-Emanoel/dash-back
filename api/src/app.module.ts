@@ -8,9 +8,12 @@ import { AuthGuard } from './modules/auth/auth.guard';
 import { UsersModule } from './modules/users/users.module';
 import { MembersModule } from './modules/members/members.module';
 import { ChurchsModule } from './modules/churchs/churchs.module';
+import { AttendencesModule } from './modules/attendences/attendences.module';
+import { EventsModule } from './modules/events/events.module';
+import { OfficesModule } from './modules/offices/offices.module';
 
 @Module({
-  imports: [AuthModule, DatabaseModule, UsersModule, MembersModule, ChurchsModule],
+  imports: [AuthModule, DatabaseModule, UsersModule, MembersModule, ChurchsModule, AttendencesModule, EventsModule, OfficesModule],
   controllers: [],
   providers: [
     {

@@ -1,28 +1,18 @@
 import {
+  IsEmpty,
   IsNotEmpty,
+  IsNumber,
   IsPhoneNumber,
   IsString,
   ValidateNested,
 } from 'class-validator';
 
-class Address {
-  @IsString()
-  street: string;
-
-  @IsString()
-  city: string;
-
-  @IsString()
-  state: string;
-
-  @IsString()
-  postalCode: string;
-}
-
 export class CreateMemberDto {
+  id: string;
+
   @IsString()
   @IsNotEmpty()
-  name: string;
+  fullName: string;
 
   @IsString()
   @IsPhoneNumber('BR')
@@ -30,17 +20,18 @@ export class CreateMemberDto {
   phone: string;
 
   @IsString()
+  @IsNotEmpty()
   churchId: string;
 
   @IsString()
   street: string;
 
   @IsString()
-  city: string;
-
-  @IsString()
-  state: string;
+  houseNumber: string;
 
   @IsString()
   postalCode: string;
+
+  @IsString()
+  officesId: string;
 }

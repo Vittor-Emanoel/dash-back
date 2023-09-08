@@ -2,6 +2,7 @@ import {
   ConflictException,
   Injectable,
   UnauthorizedException,
+  BadRequestException,
 } from '@nestjs/common';
 import { SignInDto } from './dto/signin.dto';
 
@@ -10,43 +11,13 @@ import { JwtService } from '@nestjs/jwt';
 
 import { compare, hash } from 'bcryptjs';
 import { IPayload } from './entity/payload';
-import { UsersRepository } from 'src/shared/repositories/users.repositories';
-
+import { UsersRepository } from '../../shared/repositories/users.repositories';
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userRepo: UsersRepository,
     private readonly jwtService: JwtService,
   ) {}
-
-  async signIn(signInDto: SignInDto) {
-    const { email, password } = signInDto;
-
-    const user = await this.userRepo.findUnique({
-      where: { email },
-    });
-
-    if (!user) {
-      throw new UnauthorizedException('Invalid credentials');
-    }
-
-    const isPasswordValid = await compare(password, user.password);
-
-    if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid credentials');
-    }
-
-    const payload: IPayload = {
-      sub: user.id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-    };
-
-    const accessToken = await this.generateAccessToken(payload);
-
-    return { accessToken };
-  }
 
   async signup(signupDto: SignupDto) {
     const { name, email, password } = signupDto;
@@ -81,6 +52,43 @@ export class AuthService {
 
     return { accessToken };
   }
+
+  async signIn(signInDto: SignInDto) {
+    const { email, password } = signInDto;
+
+    const user = await this.userRepo.findUnique({
+      where: { email },
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+
+    const isPasswordValid = await this.comparePass(password, user.password);
+
+    if (!isPasswordValid) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+
+    const payload: IPayload = {
+      sub: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    };
+
+    const accessToken = await this.generateAccessToken(payload);
+
+    return { accessToken };
+  }
+
+  async comparePass(
+    password: string,
+    hashedPassword: string,
+  ): Promise<boolean> {
+    return compare(password, hashedPassword);
+  }
+
   private generateAccessToken(payload: IPayload) {
     return this.jwtService.signAsync(payload);
   }

@@ -24,7 +24,7 @@ export class MembersController {
   constructor(private readonly membersService: MembersService) {}
 
   @Post()
-  @Auth(Role.ADMIN)
+  // @Auth(Role.ADMIN)
   @UseGuards(AuthGuard)
   @HttpCode(201)
   create(@Body() createMemberDto: CreateMemberDto) {
@@ -53,7 +53,7 @@ export class MembersController {
   }
 
   @Delete(':id')
-  @HttpCode(200)
+  @HttpCode(204)
   remove(@Param('id') memberId: string) {
     return this.membersService.remove(memberId);
   }

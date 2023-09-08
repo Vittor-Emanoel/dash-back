@@ -7,10 +7,10 @@ export async function main() {
     create: {
       name: 'Admin',
       email: 'admin@admin.com',
-      password: 'admin',
+      password: '12345678',
+      role: 'ADMIN',
     },
   });
-  console.log({ admin });
 }
 
 main()

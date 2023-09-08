@@ -17,8 +17,15 @@ export class MembersService {
   ) {}
 
   async create(createMemberDto: CreateMemberDto) {
-    const { name, phone, churchId, street, state, city, postalCode } =
-      createMemberDto;
+    const {
+      fullName,
+      phone,
+      churchId,
+      street,
+      houseNumber,
+      postalCode,
+      officesId,
+    } = createMemberDto;
 
     const memberExist = await this.membersRepo.findUnique({
       where: { phone },
@@ -32,13 +39,13 @@ export class MembersService {
 
     const member = await this.membersRepo.create({
       data: {
-        name,
+        fullName,
         phone,
         churchId,
         street,
-        state,
-        city,
+        houseNumber,
         postalCode,
+        officesId,
       },
     });
 
@@ -49,11 +56,28 @@ export class MembersService {
     const members = await this.membersRepo.findAll({
       select: {
         id: true,
-        name: true,
+        fullName: true,
         phone: true,
         street: true,
+        houseNumber: true,
         postalCode: true,
-        church: true,
+        church: {
+          select: {
+            name: true,
+            shepherd: true,
+          },
+        },
+        office: {
+          select: {
+            name: true,
+          },
+        },
+        Attendance: {
+          select: {
+            event: true,
+            attendanceStatus: true,
+          },
+        },
       },
       orderBy: [
         {
@@ -78,7 +102,7 @@ export class MembersService {
   }
 
   async update(memberId: string, updateMemberDto: UpdateMemberDto) {
-    const { name, phone, churchId, street, postalCode } = updateMemberDto;
+    const { fullName, phone, churchId, street, postalCode } = updateMemberDto;
 
     const memberById = await this.membersRepo.findFirst({
       where: { id: memberId },
@@ -87,13 +111,13 @@ export class MembersService {
     await this.validateChurch.validate(churchId);
 
     if (!memberById) {
-      throw new NotFoundException('This user not exist');
+      throw new NotFoundException('This is user not exists');
     }
 
     const member = await this.membersRepo.update({
       where: { id: memberId },
       data: {
-        name,
+        fullName,
         phone,
         churchId,
         street,
@@ -110,7 +134,7 @@ export class MembersService {
     });
 
     if (!memberExist) {
-      throw new NotFoundException('This user not exist');
+      throw new NotFoundException('This is user not exists');
     }
 
     await this.membersRepo.delete({

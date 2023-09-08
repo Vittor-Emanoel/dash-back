@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   Injectable,
   NotFoundException,
   ConflictException,
@@ -20,7 +19,7 @@ export class ChurchsService {
       where: { id: name },
     });
 
-    if (!churchExists) {
+    if (churchExists) {
       throw new ConflictException('This church already exists');
     }
 
@@ -57,7 +56,7 @@ export class ChurchsService {
     });
 
     if (!church) {
-      throw new NotFoundException('This is church not exist');
+      throw new NotFoundException('Church does not exist');
     }
 
     return church;
@@ -71,7 +70,7 @@ export class ChurchsService {
     });
 
     if (!churchExists) {
-      throw new NotFoundException('This is church not exists');
+      throw new NotFoundException('Church does not exist');
     }
 
     const church = await this.churchsRepo.create({
@@ -80,9 +79,21 @@ export class ChurchsService {
         shepherd,
       },
     });
+
+    return church;
   }
 
-  async remove(id: number) {
-    return `This action removes a #${id} church`;
+  async remove(churchId: string) {
+    const church = await this.churchsRepo.findAll({
+      where: { id: churchId },
+    });
+
+    if (!church) {
+      throw new NotFoundException('Church does not exist');
+    }
+
+    await this.churchsRepo.delete({
+      where: { id: churchId },
+    });
   }
 }

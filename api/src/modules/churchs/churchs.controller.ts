@@ -33,13 +33,16 @@ export class ChurchsController {
     return this.churchsService.findOne(churchId);
   }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateChurchDto: UpdateChurchDto) {
-  //   return this.churchsService.update(+id, updateChurchDto);
-  // }
+  @Patch(':id')
+  update(
+    @Param('id') churchId: string,
+    @Body() updateChurchDto: UpdateChurchDto,
+  ) {
+    return this.churchsService.update(churchId, updateChurchDto);
+  }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.churchsService.remove(+id);
-  // }
+  @Delete(':id')
+  remove(@Param('id') churchId: string) {
+    return this.churchsService.remove(churchId);
+  }
 }

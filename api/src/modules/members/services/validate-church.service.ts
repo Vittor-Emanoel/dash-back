@@ -6,11 +6,11 @@ export class ValidateChurchService {
   constructor(private readonly churchRepo: ChurchsRepository) {}
 
   async validate(churchId: string) {
-    const isOwner = await this.churchRepo.findFirst({
+    const church = await this.churchRepo.findFirst({
       where: { id: churchId },
     });
 
-    if (!isOwner) {
+    if (!church) {
       throw new NotFoundException('Church not found');
     }
   }
