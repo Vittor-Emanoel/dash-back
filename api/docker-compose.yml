@@ -1,11 +1,11 @@
 version: '3'
 
 services:
-  api-estoque-pg:
-    image: postgresql
+  adm:
+    image: postgres
     ports:
       - 5432:5432
     environment:
-      - POSTGRESQL_USERNAME=root
-      - POSTGRESQL_PASSWORD=root
-      - POSTGRESQL_DATABASE=adm
+      - POSTGRES_USERNAME=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DATABASE=adm

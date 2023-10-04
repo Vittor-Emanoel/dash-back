@@ -19,7 +19,6 @@ import { OfficesRepository } from '../repositories/offices.repositories';
     EventsRepository,
     AttendencesRepository,
     OfficesRepository,
-    IAuthRepository,
   ],
   exports: [
     UsersRepository,
@@ -28,7 +27,6 @@ import { OfficesRepository } from '../repositories/offices.repositories';
     EventsRepository,
     AttendencesRepository,
     OfficesRepository,
-    IAuthRepository,
   ],
 })
 export class DatabaseModule {}

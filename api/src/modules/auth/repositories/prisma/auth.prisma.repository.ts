@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/shared/database/prisma.service';
 import { IAuthRepository } from '../auth.repository';
-import { CreateUserDto } from 'src/modules/users/dto/user.dto';
 
 import { UserCreatedDTO } from '../../dto/auth.dto';
 
@@ -14,9 +13,11 @@ export class AuthPrismaRepository implements IAuthRepository {
       data,
     });
   }
-  async findByEmail(email: string): Promise<UserCreatedDTO> {
+  async findByEmail(email: string): Promise<UserCreatedDTO | null> {
     return await this.prisma.users.findUnique({
-      where: { id: email },
+      where: {
+        email: email,
+      },
     });
   }
 }

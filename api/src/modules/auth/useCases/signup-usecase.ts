@@ -1,8 +1,9 @@
 import { ConflictException, Injectable } from '@nestjs/common';
-import { SignUpDto } from '../dto/auth.dto';
+
 import { IAuthRepository } from '../repositories/auth.repository';
 import { hash } from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
+import { SignupDto } from '../schemas/signup.schema';
 
 @Injectable()
 export class SignupUseCase {
@@ -11,7 +12,7 @@ export class SignupUseCase {
     private readonly jwtService: JwtService,
   ) {}
 
-  async execute(data: SignUpDto) {
+  async execute(data: SignupDto) {
     const { name, email, password } = data;
 
     const emailTaken = await this.authRepository.findByEmail(email);

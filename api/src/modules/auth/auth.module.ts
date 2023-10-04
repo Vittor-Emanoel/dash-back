@@ -4,6 +4,9 @@ import { env } from 'src/shared/config/env';
 import { SigninUseCase } from './useCases/signin-usecase';
 import { SignupUseCase } from './useCases/signup-usecase';
 import { Module } from '@nestjs/common';
+import { IAuthRepository } from './repositories/auth.repository';
+import { AuthPrismaRepository } from './repositories/prisma/auth.prisma.repository';
+import { PrismaService } from 'src/shared/database/prisma.service';
 
 @Module({
   imports: [
@@ -14,6 +17,14 @@ import { Module } from '@nestjs/common';
     }),
   ],
   controllers: [AuthController],
-  providers: [SigninUseCase, SignupUseCase],
+  providers: [
+    SigninUseCase,
+    SignupUseCase,
+    PrismaService,
+    {
+      provide: IAuthRepository,
+      useClass: AuthPrismaRepository,
+    },
+  ],
 })
 export class AuthModule {}
