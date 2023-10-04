@@ -14,12 +14,14 @@ enum Role {
   FINANCE
 }
 
-model Users {
-  id       String @id @default(uuid())
-  name     String
-  email    String @unique
-  password String
-  role     Role   @default(USER)
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(USER)
+  atavarUrl String?
+  createdAt DateTime @default(now())
 
   @@map("users")
 }
