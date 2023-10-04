@@ -12,9 +12,12 @@ class Env {
   jwtSecret: string;
 }
 
+const DATABASE_URL = 'postgresql://root:root@localhost:5432/adm?schema=public';
+const JWT_SECRET = 'wadkawdiawjidjawidjawijdwiajdiwajd';
+
 export const env: Env = plainToInstance(Env, {
-  dbURL: process.env.DATABASE_URL,
-  jwtSecret: process.env.JWT_SECRET,
+  dbURL: DATABASE_URL,
+  jwtSecret: JWT_SECRET,
 });
 
 const errors = validateSync(env);

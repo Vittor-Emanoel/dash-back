@@ -1,22 +1,26 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { AuthService } from './auth.service';
 
-import { IsPublic } from '../../shared/decorators/IsPublic';
+import { IsPublic } from '../../shared/decorators/isPublic';
 import { SignInDto } from './dto/signin.dto';
 import { SignupDto } from './dto/signup.dto';
+import { SigninUseCase } from './useCases/signin-usecase';
+import { SignupUseCase } from './useCases/signup-usecase';
 
 @IsPublic()
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly signinUseCase: SigninUseCase,
+    private readonly signupUseCase: SignupUseCase,
+  ) {}
 
   @Post('signin')
   signin(@Body() signinDto: SignInDto) {
-    return this.authService.signIn(signinDto);
+    return this.signinUseCase.execute(signinDto);
   }
 
   @Post('signup')
   signup(@Body() signupDto: SignupDto) {
-    return this.authService.signup(signupDto);
+    return this.signupUseCase.execute(signupDto);
   }
 }

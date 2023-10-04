@@ -6,7 +6,7 @@ import {
 import { CreateChurchDto } from './dto/create-church.dto';
 import { UpdateChurchDto } from './dto/update-church.dto';
 import { ChurchsRepository } from 'src/shared/repositories/churchs.repositories';
-import { orderByType } from 'src/shared/models/orderBy.entity';
+import { orderByType } from 'src/shared/model/orderBy.entity';
 
 @Injectable()
 export class ChurchsService {

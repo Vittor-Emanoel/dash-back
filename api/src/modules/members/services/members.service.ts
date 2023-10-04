@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { CreateMemberDto } from '../dto/create-member.dto';
 import { MembersRepository } from 'src/shared/repositories/members.repositories';
-import { orderByType } from '../../../shared/models/orderBy.entity';
+import { orderByType } from '../../../shared/model/orderBy.entity';
 import { UpdateMemberDto } from '../dto/update-member.dto';
 import { ValidateChurchService } from './validate-church.service';
 

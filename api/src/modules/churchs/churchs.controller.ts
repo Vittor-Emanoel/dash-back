@@ -12,7 +12,7 @@ import {
 import { ChurchsService } from './churchs.service';
 import { CreateChurchDto } from './dto/create-church.dto';
 import { UpdateChurchDto } from './dto/update-church.dto';
-import { orderByType } from 'src/shared/models/orderBy.entity';
+import { orderByType } from 'src/shared/model/orderBy.entity';
 
 @Controller('churchs')
 export class ChurchsController {
