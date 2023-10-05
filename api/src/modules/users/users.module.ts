@@ -10,6 +10,7 @@ import { UsersRepository } from './repositories/prisma/user.prisma.repository';
 import { IStorage } from 'src/shared/providers/storage/storage';
 import { SupabaseStorage } from 'src/shared/providers/storage/supabase.storage';
 import { PrismaService } from 'src/shared/database/prisma.service';
+import { GetProfileUseCase } from './useCases/get-profile.usecase';
 
 @Module({
   controllers: [UsersController],
@@ -17,6 +18,7 @@ import { PrismaService } from 'src/shared/database/prisma.service';
     PrismaService,
     UploadRoleUseCase,
     UploadAvatarUserUseCase,
+    GetProfileUseCase,
     {
       provide: APP_GUARD,
       useClass: AuthGuard,

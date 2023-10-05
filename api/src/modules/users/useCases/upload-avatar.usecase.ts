@@ -13,16 +13,14 @@ export class UploadAvatarUserUseCase {
   ) {}
 
   async execute(data: AvatarDTO) {
+    const publicUrl = process.env.SUPABASE_PUBLIC_URL ?? '';
     const extFile = extname(data.file.originalname);
     const transformName = `${data.idUser}${extFile}`;
-    /*
-      originalname = avatar.png
-      originalname = transformName (892349234789234923489234.png)
-     */
-    data.file.originalname = transformName;
-    const file = await this.storage.upload(data.file, 'avatar');
 
-    const pathAvatarUser = `avatar/${data.file.originalname}`;
+    data.file.originalname = transformName;
+    const file = await this.storage.upload(data.file, 'images');
+
+    const pathAvatarUser = `${publicUrl}${data.file.originalname}`;
 
     await this.usersRepository.uploadAvatar(data.idUser, pathAvatarUser);
 

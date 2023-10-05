@@ -1,4 +1,4 @@
-import { UserCreatedDTO } from 'src/modules/auth/dto/auth.dto';
+import { UserCreatedDTO, UserProfileDTO } from 'src/modules/auth/dto/auth.dto';
 import { UpdateUserDto, Role } from '../dto/update.dto';
 
 export abstract class IUsersRepository {
@@ -7,5 +7,6 @@ export abstract class IUsersRepository {
   abstract updateRole(
     userId: string,
     role: Role,
-  ): Promise<UpdateUserDto | null | Role>;
+  ): Promise<UpdateUserDto | null>;
+  abstract me(userId: string): Promise<UserProfileDTO | null>;
 }

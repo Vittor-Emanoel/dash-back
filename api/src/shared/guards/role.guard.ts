@@ -1,17 +1,17 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
-import { ROLES_KEY, Role } from '../decorators/roles.decorators';
+import { ROLES_KEY, RoleType } from '../decorators/roles.decorators';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
   constructor(private reflector: Reflector, private jwtService: JwtService) {}
 
   async canActivate(context: ExecutionContext) {
-    const requiredRoles = this.reflector.getAllAndOverride<Role[]>(ROLES_KEY, [
-      context.getHandler(),
-      context.getClass(),
-    ]);
+    const requiredRoles = this.reflector.getAllAndOverride<RoleType[]>(
+      ROLES_KEY,
+      [context.getHandler(), context.getClass()],
+    );
 
     if (!requiredRoles) {
       return true;

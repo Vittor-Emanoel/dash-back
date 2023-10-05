@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/shared/database/prisma.service';
 
-import { UserCreatedDTO } from 'src/modules/auth/dto/auth.dto';
+import { UserCreatedDTO, UserProfileDTO } from 'src/modules/auth/dto/auth.dto';
 import { IUsersRepository } from '../user.repository';
 
 import { Role, UpdateUserDto } from '../../dto/update.dto';
@@ -18,7 +18,14 @@ export class UsersRepository implements IUsersRepository {
     });
   }
   async uploadAvatar(id: string, path: string): Promise<void> {
-    return null;
+    await this.prisma.user.update({
+      data: {
+        atavarUrl: path,
+      },
+      where: {
+        id,
+      },
+    });
   }
 
   async updateRole(userId: string, role: Role): Promise<UpdateUserDto | null> {
@@ -35,5 +42,19 @@ export class UsersRepository implements IUsersRepository {
     });
 
     return { ...user, role };
+  }
+  async me(userId: string): Promise<UserProfileDTO | null> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        atavarUrl: true,
+        createdAt: true,
+      },
+    });
+    return user;
   }
 }

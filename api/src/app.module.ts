@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 
 import { APP_GUARD } from '@nestjs/core';
 import { AuthModule } from './modules/auth/auth.module';
@@ -13,7 +14,17 @@ import { EventsModule } from './modules/events/events.module';
 import { OfficesModule } from './modules/offices/offices.module';
 
 @Module({
-  imports: [AuthModule, DatabaseModule, UsersModule, MembersModule, ChurchsModule, AttendencesModule, EventsModule, OfficesModule],
+  imports: [
+    ConfigModule.forRoot(),
+    AuthModule,
+    DatabaseModule,
+    UsersModule,
+    MembersModule,
+    ChurchsModule,
+    AttendencesModule,
+    EventsModule,
+    OfficesModule,
+  ],
   controllers: [],
   providers: [
     {

@@ -1,6 +1,3 @@
-import { Role } from 'src/shared/decorators/roles.decorators';
-import { RolesGuard } from 'src/shared/guards/role.guard';
-
 export type SignInDto = {
   email: string;
   password: string;
@@ -17,5 +14,15 @@ export type UserCreatedDTO = {
   name: string;
   email: string;
   password: string;
+  atavarUrl?: string;
+  createdAt: Date;
+  role: 'ADMIN' | 'FINANCE' | 'SECRETARY' | 'USER';
+};
+
+export type UserProfileDTO = {
+  id: string;
+  name: string;
+  email: string;
+  atavarUrl?: string;
   role: 'ADMIN' | 'FINANCE' | 'SECRETARY' | 'USER';
 };

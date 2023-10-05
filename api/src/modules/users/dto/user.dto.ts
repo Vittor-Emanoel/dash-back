@@ -5,7 +5,6 @@ import {
   IsString,
   MinLength,
 } from 'class-validator';
-import { Role } from 'src/shared/decorators/roles.decorators';
 
 export class CreateUserDto {
   @IsString()
