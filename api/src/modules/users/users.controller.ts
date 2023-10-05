@@ -2,8 +2,7 @@ import {
   Body,
   Controller,
   Get,
-  Post,
-  Put,
+  Patch,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -16,7 +15,7 @@ import { FileDTO } from './dto/users.dto';
 import { UploadAvatarUserUseCase } from './useCases/upload-avatar.usecase';
 import { AuthGuard } from '../auth/auth.guard';
 import { GetProfileUseCase } from './useCases/get-profile.usecase';
-import { Role, UpdateUserDto } from './dto/update.dto';
+import { UpdateUserDto } from './dto/update.dto';
 
 @Controller('/users')
 export class UsersController {
@@ -31,7 +30,7 @@ export class UsersController {
     return this.getProfileUseCase.execute(userId);
   }
 
-  @Post('/update')
+  @Patch('/update')
   async update(
     @Body() { role }: UpdateUserDto,
     @ActiveUserId() userId: string,
@@ -39,7 +38,7 @@ export class UsersController {
     return this.updateRoleUseCase.execute(userId, role);
   }
 
-  @Put('/avatar')
+  @Patch('/avatar')
   @UseInterceptors(FileInterceptor('file'))
   @UseGuards(AuthGuard)
   async uploadFile(
