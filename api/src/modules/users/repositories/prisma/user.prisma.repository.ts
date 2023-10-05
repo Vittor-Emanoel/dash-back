@@ -11,7 +11,7 @@ export class UsersRepository implements IUsersRepository {
   constructor(private prisma: PrismaService) {}
 
   async findById(userId: string): Promise<UserCreatedDTO | null> {
-    return await this.prisma.users.findUnique({
+    return await this.prisma.user.findUnique({
       where: {
         id: userId,
       },
@@ -22,7 +22,7 @@ export class UsersRepository implements IUsersRepository {
   }
 
   async updateRole(userId: string, role: Role): Promise<UpdateUserDto | null> {
-    const user = await this.prisma.users.update({
+    const user = await this.prisma.user.update({
       where: { id: userId },
       data: {
         role: role,

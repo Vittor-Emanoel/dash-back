@@ -7,5 +7,5 @@ export abstract class IUsersRepository {
   abstract updateRole(
     userId: string,
     role: Role,
-  ): Promise<UpdateUserDto | null>;
+  ): Promise<UpdateUserDto | null | Role>;
 }

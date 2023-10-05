@@ -1,13 +1,15 @@
 import { Injectable } from '@nestjs/common';
 
-import { IUserRepository } from '../repositories/user.repository';
 import { extname } from 'path';
+import { IUsersRepository } from '../repositories/user.repository';
+import { AvatarDTO } from '../dto/users.dto';
+import { IStorage } from 'src/shared/providers/storage/storage';
 
 @Injectable()
 export class UploadAvatarUserUseCase {
   constructor(
     private storage: IStorage,
-    private userRepository: IUserRepository,
+    private usersRepository: IUsersRepository,
   ) {}
 
   async execute(data: AvatarDTO) {
@@ -22,7 +24,7 @@ export class UploadAvatarUserUseCase {
 
     const pathAvatarUser = `avatar/${data.file.originalname}`;
 
-    await this.userRepository.uploadAvatar(data.idUser, pathAvatarUser);
+    await this.usersRepository.uploadAvatar(data.idUser, pathAvatarUser);
 
     return file;
   }
