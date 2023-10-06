@@ -3,9 +3,9 @@ import { IOfficeRepository } from '../repositories/office-repository';
 
 @Injectable()
 export class GetOfficeUseCase {
-  constructor(private readonly officesRepository: IOfficeRepository) {}
+  constructor(private readonly officeRepository: IOfficeRepository) {}
 
   async execute() {
-    return this.officesRepository.findAll();
+    return this.officeRepository.findAll();
   }
 }

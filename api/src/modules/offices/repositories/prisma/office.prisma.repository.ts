@@ -10,9 +10,12 @@ export class OfficeRepository implements IOfficeRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async findAll(): Promise<Office[]> {
-    const offices = await this.prisma.offices.findMany();
-
-    return offices;
+    return await this.prisma.offices.findMany({
+      select: {
+        id: true,
+        name: true,
+      },
+    });
   }
 
   async create(data: CreateOfficeDto): Promise<Office> {
