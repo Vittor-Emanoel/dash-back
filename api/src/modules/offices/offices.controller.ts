@@ -8,44 +8,44 @@ import {
   Delete,
   HttpCode,
 } from '@nestjs/common';
-import { OfficesService } from './offices.service';
+
 import { CreateOfficeDto } from './dto/create-office.dto';
 import { UpdateOfficeDto } from './dto/update-office.dto';
+import { CreateOfficeUseCase } from './useCases/create-office.usecase';
+import { GetOfficeUseCase } from './useCases/get-office.usecase';
+import { UpdateOfficeUseCase } from './useCases/update-office.usecase';
+import { DeleteOfficeUseCase } from './useCases/delete-office.usecase';
 
 @Controller('offices')
 export class OfficesController {
-  constructor(private readonly officesService: OfficesService) {}
+  constructor(
+    private readonly createOfficeUseCase: CreateOfficeUseCase,
+    private readonly getOfficeUseCase: GetOfficeUseCase,
+    private readonly updateOfficeUseCase: UpdateOfficeUseCase,
+    private readonly deleteOfficeUseCase: DeleteOfficeUseCase,
+  ) {}
 
   @Post()
   @HttpCode(201)
   create(@Body() createOfficeDto: CreateOfficeDto) {
-    return this.officesService.create(createOfficeDto);
+    return this.createOfficeUseCase.execute(createOfficeDto);
   }
 
   @Get()
   @HttpCode(200)
   findAll() {
-    return this.officesService.findAll();
-  }
-
-  @Get(':id')
-  @HttpCode(200)
-  findOne(@Param('id') officeId: string) {
-    return this.officesService.findOne(officeId);
+    return this.getOfficeUseCase.execute();
   }
 
   @Patch(':id')
   @HttpCode(20)
-  update(
-    @Param('id') officeId: string,
-    @Body() updateOfficeDto: UpdateOfficeDto,
-  ) {
-    return this.officesService.update(officeId, updateOfficeDto);
+  update(@Param('id') id: string, @Body() updateOfficeDto: UpdateOfficeDto) {
+    return this.updateOfficeUseCase.execute(id, updateOfficeDto);
   }
 
   @Delete(':id')
   @HttpCode(204)
-  remove(@Param('id') officeId: string) {
-    return this.officesService.remove(officeId);
+  remove(@Param('id') id: string) {
+    return this.deleteOfficeUseCase.execute(id);
   }
 }
