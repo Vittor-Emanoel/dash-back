@@ -5,7 +5,6 @@ import { MembersRepository } from '../repositories/members.repositories';
 import { ChurchsRepository } from '../repositories/churchs.repositories';
 import { EventsRepository } from '../repositories/events.repositories';
 import { AttendencesRepository } from '../repositories/attendences.repositories';
-import { OfficesRepository } from '../repositories/offices.repositories';
 
 @Global()
 @Module({
@@ -15,14 +14,12 @@ import { OfficesRepository } from '../repositories/offices.repositories';
     ChurchsRepository,
     EventsRepository,
     AttendencesRepository,
-    OfficesRepository,
   ],
   exports: [
     MembersRepository,
     ChurchsRepository,
     EventsRepository,
     AttendencesRepository,
-    OfficesRepository,
   ],
 })
 export class DatabaseModule {}

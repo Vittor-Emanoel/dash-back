@@ -1,21 +1,24 @@
 import { PrismaService } from 'src/shared/database/prisma.service';
 import { IOfficeRepository } from '../office-repository';
-import { NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { UpdateOfficeDto } from '../../dto/update-office.dto';
 
 import { CreateOfficeDto } from '../../dto/create-office.dto';
 import { Office } from 'src/shared/model/Office';
 
+@Injectable()
 export class OfficeRepository implements IOfficeRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll(): Promise<Office[]> {
-    return await this.prisma.offices.findMany({
+  async findAll(): Promise<Office[] | null> {
+    const office = await this.prisma.offices.findMany({
       select: {
         id: true,
         name: true,
       },
     });
+
+    return office;
   }
 
   async create(data: CreateOfficeDto): Promise<Office> {
@@ -48,7 +51,7 @@ export class OfficeRepository implements IOfficeRepository {
 
     return office;
   }
-
+  Injectable;
   async delete(id: string): Promise<Office> {
     const officeExist = await this.prisma.offices.findUnique({
       where: { id },

@@ -1,7 +1,8 @@
-import { NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { IOfficeRepository } from '../repositories/office-repository';
 import { UpdateOfficeDto } from '../dto/update-office.dto';
 
+@Injectable()
 export class UpdateOfficeUseCase {
   constructor(private readonly officesRepository: IOfficeRepository) {}
 

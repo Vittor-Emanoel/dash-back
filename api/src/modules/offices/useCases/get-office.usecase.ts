@@ -6,6 +6,6 @@ export class GetOfficeUseCase {
   constructor(private readonly officeRepository: IOfficeRepository) {}
 
   async execute() {
-    return this.officeRepository.findAll();
+    return await this.officeRepository.findAll();
   }
 }
