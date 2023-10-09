@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { FileDTO } from 'src/modules/users/dto/users.dto';
+import { FileDTO } from 'src/modules/user/dto/users.dto';
 
 import { IStorage } from './storage';
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
