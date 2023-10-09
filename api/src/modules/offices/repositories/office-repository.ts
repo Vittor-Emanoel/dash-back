@@ -1,6 +1,6 @@
 import { UpdateOfficeDto } from '../dto/update-office.dto';
 import { CreateOfficeDto } from '../dto/create-office.dto';
-import { Office } from 'src/shared/model/Office';
+import { Office } from 'src/shared/models/Office';
 
 export abstract class IOfficeRepository {
   abstract findUnique(id: string): Promise<Office | null>;

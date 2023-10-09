@@ -31,40 +31,40 @@ model User {
   @@map("users")
 }
 
-model Churchs {
-  id       String    @id @default(uuid())
-  name     String    @unique
+model Church {
+  id       String   @id @default(uuid())
+  name     String   @unique
   shepherd String
-  Members  Members[]
+  members  Member[]
 
   @@map("churchs")
 }
 
-model Members {
+model Member {
   id          String       @id @default(uuid())
   fullName    String
   phone       String       @unique
   churchId    String
   street      String
   houseNumber String
-  officesId   String
   postalCode  String
-  church      Churchs      @relation(fields: [churchId], references: [id])
-  office      Offices      @relation(fields: [officesId], references: [id])
+  officeId    String
+  church      Church       @relation(fields: [churchId], references: [id])
+  office      Office       @relation(fields: [officeId], references: [id])
   Attendance  Attendance[]
 
   @@map("members")
 }
 
-model Offices {
-  id      String    @id @default(uuid())
-  name    String    @unique
-  Members Members[]
+model Office {
+  id      String   @id @default(uuid())
+  name    String   @unique
+  members Member[]
 
   @@map("offices")
 }
 
-model Events {
+model Event {
   id          String       @id @default(uuid())
   name        String
   date        DateTime
@@ -74,11 +74,11 @@ model Events {
 }
 
 model Attendance {
-  id               String  @id @default(uuid())
+  id               String @id @default(uuid())
   memberId         String
   eventId          String
-  member           Members @relation(fields: [memberId], references: [id])
-  event            Events  @relation(fields: [eventId], references: [id])
+  member           Member @relation(fields: [memberId], references: [id])
+  event            Event  @relation(fields: [eventId], references: [id])
   attendanceStatus String
 
   @@map("attendance")

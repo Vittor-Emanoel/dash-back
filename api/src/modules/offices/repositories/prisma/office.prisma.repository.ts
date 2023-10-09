@@ -4,14 +4,14 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { UpdateOfficeDto } from '../../dto/update-office.dto';
 
 import { CreateOfficeDto } from '../../dto/create-office.dto';
-import { Office } from 'src/shared/model/Office';
+import { Office } from 'src/shared/models/Office';
 
 @Injectable()
 export class OfficeRepository implements IOfficeRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async findAll(): Promise<Office[] | null> {
-    const office = await this.prisma.offices.findMany({
+    const office = await this.prisma.office.findMany({
       select: {
         id: true,
         name: true,
@@ -22,7 +22,7 @@ export class OfficeRepository implements IOfficeRepository {
   }
 
   async create(data: CreateOfficeDto): Promise<Office> {
-    const office = await this.prisma.offices.create({
+    const office = await this.prisma.office.create({
       data: {
         name: data.name,
       },
@@ -34,7 +34,7 @@ export class OfficeRepository implements IOfficeRepository {
   async update(id: string, data: UpdateOfficeDto): Promise<Office> {
     const { name } = data;
 
-    const officeExist = await this.prisma.offices.findUnique({
+    const officeExist = await this.prisma.office.findUnique({
       where: { id },
     });
 
@@ -42,7 +42,7 @@ export class OfficeRepository implements IOfficeRepository {
       throw new NotFoundException('Office does not exist');
     }
 
-    const office = await this.prisma.offices.update({
+    const office = await this.prisma.office.update({
       where: { id },
       data: {
         name,
@@ -53,7 +53,7 @@ export class OfficeRepository implements IOfficeRepository {
   }
   Injectable;
   async delete(id: string): Promise<Office> {
-    const officeExist = await this.prisma.offices.findUnique({
+    const officeExist = await this.prisma.office.findUnique({
       where: { id },
     });
 
@@ -61,7 +61,7 @@ export class OfficeRepository implements IOfficeRepository {
       throw new NotFoundException('Office does not exist');
     }
 
-    const office = await this.prisma.offices.delete({
+    const office = await this.prisma.office.delete({
       where: { id },
     });
 
@@ -69,7 +69,7 @@ export class OfficeRepository implements IOfficeRepository {
   }
 
   async findUnique(id: string): Promise<Office | null> {
-    const office = await this.prisma.offices.findUnique({
+    const office = await this.prisma.office.findUnique({
       where: { id },
     });
 

@@ -9,40 +9,50 @@ import {
   Delete,
   ParseUUIDPipe,
 } from '@nestjs/common';
-import { ChurchsService } from './churchs.service';
+
 import { CreateChurchDto } from './dto/create-church.dto';
 import { UpdateChurchDto } from './dto/update-church.dto';
-import { orderByType } from 'src/shared/model/orderBy.entity';
+
+import { CreateChurchUseCase } from './useCases/create-church.usecase';
+import { GetChurchUseCase } from './useCases/get-church.usecase';
+import { DeleteChurchUseCase } from './useCases/delete-church.usecase';
+import { UpdateChurchUseCase } from './useCases/update-church.usecase';
 
 @Controller('churchs')
 export class ChurchsController {
-  constructor(private readonly churchsService: ChurchsService) {}
+  constructor(
+    private readonly createChurchUseCase: CreateChurchUseCase,
+    private readonly getChurchUseCase: GetChurchUseCase,
+    private readonly deleteChurchUseCase: DeleteChurchUseCase,
+    private readonly updateChurchUseCase: UpdateChurchUseCase,
+  ) {}
 
   @Post()
   create(@Body() createChurchDto: CreateChurchDto) {
-    return this.churchsService.create(createChurchDto);
+    return this.createChurchUseCase.execute(createChurchDto);
   }
 
+  // @Query() orderBy: orderByType
   @Get()
-  findAll(@Query() orderBy: orderByType) {
-    return this.churchsService.findAll(orderBy);
+  findAll() {
+    return this.getChurchUseCase.execute();
   }
 
-  @Get(':id')
-  findOne(@Param('id', ParseUUIDPipe) churchId: string) {
-    return this.churchsService.findOne(churchId);
-  }
+  // @Get(':id')
+  // findOne(@Param('id', ParseUUIDPipe) churchId: string) {
+  //   return this.churchsService.findOne(churchId);
+  // }
 
   @Patch(':id')
   update(
     @Param('id') churchId: string,
     @Body() updateChurchDto: UpdateChurchDto,
   ) {
-    return this.churchsService.update(churchId, updateChurchDto);
+    return this.updateChurchUseCase.execute(churchId, updateChurchDto);
   }
 
   @Delete(':id')
   remove(@Param('id') churchId: string) {
-    return this.churchsService.remove(churchId);
+    return this.deleteChurchUseCase.execute(churchId);
   }
 }
