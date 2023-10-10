@@ -21,7 +21,6 @@ export class MembersRepository implements IMembersRepository {
           select: {
             id: true,
             name: true,
-            shepherd: true,
           },
         },
         office: {

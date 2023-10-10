@@ -15,26 +15,29 @@ export class ChurchRepository implements IChurchRepository {
       select: {
         id: true,
         name: true,
-        shepherd: true,
+        shepherdId: true,
+        members: true,
       },
     });
 
     return church;
   }
   async findUnique(id: string): Promise<Church | null> {
-    const church = await this.prisma.church.findUnique({
+    return await this.prisma.church.findUnique({
       where: { id },
+      include: {
+        members: true,
+      },
     });
-
-    return church;
   }
 
-  async findAll() {
+  async findAll(): Promise<Church[]> {
     return await this.prisma.church.findMany({
       select: {
         id: true,
         name: true,
-        shepherd: true,
+        shepherdId: true,
+        members: true,
       },
       orderBy: [
         {
@@ -48,13 +51,18 @@ export class ChurchRepository implements IChurchRepository {
     const church = await this.prisma.church.update({
       data,
       where: { id },
+      include: {
+        members: true,
+      },
     });
     return church;
   }
   async delete(id: string): Promise<Church> {
-    const church = await this.prisma.church.delete({
+    return await this.prisma.church.delete({
       where: { id },
+      include: {
+        members: true,
+      },
     });
-    return church;
   }
 }

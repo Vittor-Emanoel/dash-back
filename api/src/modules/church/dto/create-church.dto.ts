@@ -7,5 +7,5 @@ export class CreateChurchDto {
 
   @IsString()
   @IsNotEmpty()
-  shepherd: string;
+  shepherdId: string;
 }

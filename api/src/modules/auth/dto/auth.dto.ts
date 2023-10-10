@@ -16,7 +16,7 @@ export type UserCreatedDTO = {
   password: string;
   atavarUrl?: string;
   createdAt: Date;
-  role: 'ADMIN' | 'FINANCE' | 'SECRETARY' | 'USER';
+  role: 'ADMIN' | 'FINANCE' | 'SECRETARY' | 'USER' | 'SHEPHERD';
 };
 
 export type UserProfileDTO = {
@@ -24,5 +24,5 @@ export type UserProfileDTO = {
   name: string;
   email: string;
   atavarUrl?: string;
-  role: 'ADMIN' | 'FINANCE' | 'SECRETARY' | 'USER';
+  role: 'ADMIN' | 'FINANCE' | 'SECRETARY' | 'USER' | 'SHEPHERD';
 };

@@ -15,6 +15,7 @@ datasource db {
 enum Role {
   USER
   ADMIN
+  SHEPHERD
   SECRETARY
   FINANCE
 }
@@ -27,15 +28,17 @@ model User {
   role      Role     @default(USER)
   atavarUrl String?
   createdAt DateTime @default(now())
+  Church    Church?
 
   @@map("users")
 }
 
 model Church {
-  id       String   @id @default(uuid())
-  name     String   @unique
-  shepherd String
-  members  Member[]
+  id         String   @id @default(uuid())
+  name       String   @unique
+  shepherdId String   @unique
+  members    Member[]
+  user       User     @relation(fields: [shepherdId], references: [id])
 
   @@map("churchs")
 }
@@ -81,5 +84,5 @@ model Attendance {
   event            Event  @relation(fields: [eventId], references: [id])
   attendanceStatus String
 
-  @@map("attendance")
+  @@map("attendances")
 }

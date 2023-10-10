@@ -3,7 +3,7 @@ import { Member } from './Member';
 export class Church {
   readonly id: string;
   readonly name: string;
-  readonly shepherd: string;
+  readonly shepherdId?: string;
   readonly members?: Array<Member>;
 
   constructor(
@@ -14,7 +14,7 @@ export class Church {
   ) {
     this.id = id;
     this.name = name;
-    this.shepherd = shepherd;
+    this.shepherdId = shepherd;
     this.members = members;
   }
 }

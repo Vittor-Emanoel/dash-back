@@ -3,7 +3,7 @@ export class User {
   readonly name: string;
   readonly email: string;
   readonly password: string;
-  readonly role: 'ADMIN' | 'FINANCE' | 'SECRETARY' | 'USER';
+  readonly role: 'ADMIN' | 'FINANCE' | 'SECRETARY' | 'USER' | 'SHEPHERD';
   readonly avatarUrl?: string;
   readonly createdAt?: Date;
 
@@ -12,7 +12,7 @@ export class User {
     name: string,
     email: string,
     password: string,
-    role: 'ADMIN' | 'FINANCE' | 'SECRETARY' | 'USER',
+    role: 'ADMIN' | 'FINANCE' | 'SECRETARY' | 'USER' | 'SHEPHERD',
     avatarUrl: string,
     createdAt: Date,
   ) {

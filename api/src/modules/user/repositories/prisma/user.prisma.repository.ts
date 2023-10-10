@@ -54,6 +54,11 @@ export class UsersRepository implements IUsersRepository {
         role: true,
         atavarUrl: true,
         createdAt: true,
+        Church: {
+          select: {
+            name: true,
+          },
+        },
       },
     });
     return user;
