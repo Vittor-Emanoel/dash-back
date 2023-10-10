@@ -13,9 +13,9 @@ import { UploadRoleUseCase } from './useCases/update-role.usecase';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FileDTO } from './dto/users.dto';
 import { UploadAvatarUserUseCase } from './useCases/upload-avatar.usecase';
-import { AuthGuard } from '../auth/auth.guard';
 import { GetProfileUseCase } from './useCases/get-profile.usecase';
 import { UpdateUserDto } from './dto/update.dto';
+import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('/users')
 export class UsersController {

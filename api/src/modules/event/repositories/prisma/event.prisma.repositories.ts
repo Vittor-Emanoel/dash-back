@@ -9,7 +9,7 @@ import { UpdateEventDto } from '../../dto/update-event.dto';
 export class EventRepository implements IEventRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll(): Promise<any | null> {
+  async findAll(): Promise<Event[] | null> {
     return await this.prisma.event.findMany({
       select: {
         id: true,
@@ -17,16 +17,9 @@ export class EventRepository implements IEventRepository {
         date: true,
         attendances: {
           select: {
-            member: {
-              select: {
-                fullName: true,
-                church: {
-                  select: {
-                    name: true,
-                  },
-                },
-              },
-            },
+            id: true,
+            memberId: true,
+            eventId: true,
             attendanceStatus: true,
           },
         },

@@ -7,7 +7,7 @@ import { UpdateMemberUseCase } from './useCases/update-member.usecase';
 import { DeleteMemberUseCase } from './useCases/delete-member.usecase';
 import { GetMemberUseCase } from './useCases/get-member.usecase';
 import { IMembersRepository } from './repositories/members.repository';
-import { MembersRepository } from './repositories/members.prisma.repository';
+import { MembersRepository } from './repositories/prisma/members.prisma.repository';
 
 @Module({
   controllers: [MembersController],

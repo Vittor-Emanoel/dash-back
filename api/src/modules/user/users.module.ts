@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 
 import { UsersController } from './users.controller';
 import { APP_GUARD } from '@nestjs/core';
-import { AuthGuard } from 'src/modules/auth/auth.guard';
+
 import { UploadRoleUseCase } from './useCases/update-role.usecase';
 import { UploadAvatarUserUseCase } from './useCases/upload-avatar.usecase';
 import { IUsersRepository } from './repositories/user.repository';
@@ -11,6 +11,7 @@ import { IStorage } from 'src/shared/providers/storage/storage';
 import { SupabaseStorage } from 'src/shared/providers/storage/supabase.storage';
 import { PrismaService } from 'src/shared/database/prisma.service';
 import { GetProfileUseCase } from './useCases/get-profile.usecase';
+import { AuthGuard } from '../auth/auth.guard';
 
 @Module({
   controllers: [UsersController],

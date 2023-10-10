@@ -1,11 +1,9 @@
-import { RoleType } from '../decorators/roles.decorators';
-
 export class User {
   readonly id: string;
   readonly name: string;
   readonly email: string;
   readonly password: string;
-  readonly role: RoleType;
+  readonly role: 'ADMIN' | 'FINANCE' | 'SECRETARY' | 'USER';
   readonly avatarUrl?: string;
   readonly createdAt?: Date;
 
@@ -14,7 +12,7 @@ export class User {
     name: string,
     email: string,
     password: string,
-    role: RoleType,
+    role: 'ADMIN' | 'FINANCE' | 'SECRETARY' | 'USER',
     avatarUrl: string,
     createdAt: Date,
   ) {
