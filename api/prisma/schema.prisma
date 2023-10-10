@@ -29,6 +29,7 @@ model User {
   atavarUrl String?
   createdAt DateTime @default(now())
   Church    Church?
+  Member    Member[]
 
   @@map("users")
 }
@@ -52,8 +53,10 @@ model Member {
   houseNumber String
   postalCode  String
   officeId    String
+  userId      String?
   church      Church       @relation(fields: [churchId], references: [id])
   office      Office       @relation(fields: [officeId], references: [id])
+  shepherdId  User?        @relation(fields: [userId], references: [id])
   Attendance  Attendance[]
 
   @@map("members")

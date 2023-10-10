@@ -13,6 +13,7 @@ import { CreateMemberUseCase } from './useCases/create-member.usecase';
 import { GetMemberUseCase } from './useCases/get-member.usecase';
 import { UpdateMemberUseCase } from './useCases/update-member.usecase';
 import { DeleteMemberUseCase } from './useCases/delete-member.usecase';
+import { ActiveUserId } from 'src/shared/decorators/ActiveUserId';
 
 @Controller('members')
 export class MembersController {
@@ -29,8 +30,8 @@ export class MembersController {
   }
 
   @Get()
-  findAll() {
-    return this.getMemberUseCase.execute();
+  findAll(@ActiveUserId() id: string) {
+    return this.getMemberUseCase.execute(id);
   }
 
   // @Get(':id')

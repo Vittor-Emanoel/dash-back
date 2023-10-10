@@ -8,8 +8,11 @@ import { CreateMemberDto } from '../../dto/create-member.dto';
 export class MembersRepository implements IMembersRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll(): Promise<Member[]> {
+  async findAll(id: string): Promise<Member[]> {
     const members = await this.prisma.member.findMany({
+      where: {
+        userId: id,
+      },
       select: {
         id: true,
         fullName: true,
@@ -21,6 +24,12 @@ export class MembersRepository implements IMembersRepository {
           select: {
             id: true,
             name: true,
+            user: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
           },
         },
         office: {

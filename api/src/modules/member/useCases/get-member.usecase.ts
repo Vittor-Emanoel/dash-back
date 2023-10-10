@@ -5,7 +5,7 @@ import { IMembersRepository } from '../repositories/members.repository';
 export class GetMemberUseCase {
   constructor(private readonly membersRepository: IMembersRepository) {}
 
-  async execute() {
-    return await this.membersRepository.findAll();
+  async execute(id: string) {
+    return await this.membersRepository.findAll(id);
   }
 }
