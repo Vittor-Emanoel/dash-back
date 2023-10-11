@@ -10,15 +10,8 @@ export class CreateEventUseCase {
   async execute(data: CreateEventDto) {
     const { name, date } = data;
 
-    const dateFormat = FormatDate(date);
+    const eventDate = await this.eventRepository.findByDate(date);
 
-    const [eventExistsWithTheSameName, eventExistSameDate] = await Promise.all([
-      this.eventRepository.findUnique(name),
-      this.eventRepository.findUnique(dateFormat),
-    ]).then();
-
-    if (eventExistsWithTheSameName && eventExistSameDate) {
-      return console.log('caiu');
-    }
+    return eventDate;
   }
 }

@@ -5,6 +5,16 @@ export type UserUpdate = {
   role: 'ADMIN' | 'FINANCE' | 'SECRETARY' | 'USER';
 };
 
+export type UserCreated = {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+  role: 'ADMIN' | 'FINANCE' | 'SECRETARY' | 'USER' | 'SHEPHERD';
+  avatarUrl?: string;
+  createdAt?: Date;
+};
+
 export type UploadAvatar = {
   id: string;
   path: string;

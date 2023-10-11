@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { IEventRepository } from './repositories/event.repositories';
 import { FormatDate } from 'src/shared/utils/date';
+import { format, parseISO, startOfDay } from 'date-fns';
 
 @Injectable()
 export class EventService {
@@ -11,18 +12,13 @@ export class EventService {
   async create(data: CreateEventDto) {
     const { name, date } = data;
 
-    const dateFormat = FormatDate(date);
-
-    const eventExistsWithTheSameName = await this.eventRepository.findUnique(
+    const eventExistSameDate = await this.eventRepository.findByDate(date);
+    const eventExistsWithTheSameName = await this.eventRepository.findByName(
       name,
     );
 
-    const eventExistSameDate = await this.eventRepository.findUnique(
-      dateFormat,
-    );
-
-    if (eventExistsWithTheSameName && eventExistSameDate) {
-      return console.log('caiu');
+    if (eventExistSameDate && eventExistsWithTheSameName) {
+      throw new ConflictException('Event is already exists');
     }
 
     await this.eventRepository.create(data);

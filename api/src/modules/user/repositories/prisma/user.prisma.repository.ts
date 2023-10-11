@@ -1,17 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/shared/database/prisma.service';
 
-import { UserProfileDTO } from 'src/modules/auth/dto/auth.dto';
+import { UserCreatedDTO, UserProfileDTO } from 'src/modules/auth/dto/auth.dto';
 import { IUsersRepository } from '../user.repository';
 
 import { Role, UpdateUserDto } from '../../dto/update.dto';
-import { User } from 'src/shared/models/User';
 
 @Injectable()
 export class UsersRepository implements IUsersRepository {
   constructor(private prisma: PrismaService) {}
 
-  async findById(userId: string): Promise<User | null> {
+  async findById(userId: string): Promise<UserCreatedDTO | null> {
     return await this.prisma.user.findUnique({
       where: {
         id: userId,

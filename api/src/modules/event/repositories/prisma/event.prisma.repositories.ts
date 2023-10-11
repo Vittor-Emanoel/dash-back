@@ -99,4 +99,26 @@ export class EventRepository implements IEventRepository {
 
     return event;
   }
+
+  async findByDate(date: Date): Promise<Event[]> {
+    const event = await this.prisma.event.findMany({
+      where: {
+        date: {
+          equals: date,
+        },
+      },
+    });
+
+    return event;
+  }
+
+  async findByName(name: string): Promise<Event[]> {
+    const event = await this.prisma.event.findMany({
+      where: {
+        name,
+      },
+    });
+
+    return event;
+  }
 }

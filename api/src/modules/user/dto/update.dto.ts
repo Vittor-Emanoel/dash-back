@@ -9,4 +9,5 @@ export enum Role {
   SECRETARY = 'SECRETARY',
   FINANCE = 'FINANCE',
   USER = 'USER',
+  SHEPHERD = 'SHEPHERD',
 }
