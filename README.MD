@@ -1,14 +1,31 @@
-# Back-end - DashSA
+### DashSA - Sistema Administrativo para Igreja
 
-O "DashSA" é o sistema adminstrativo para a igreja aonde congrego.
+**Introdução:**
 
-O Desenvolvimento desse sistema surgiu por alguns principais motivos:
+O "DashSA" é um sistema administrativo que estou desenvolvendo para a igreja à qual congrego. Este projeto surgiu devido a uma série de desafios e necessidades que identificamos no gerenciamento e administração da nossa congregação. Com o "DashSA", nossa igreja terá uma solução personalizada para enfrentar esses desafios.
 
-- Dificuldade de acesso remoto aos dados cadastrais dos membros e congregados.
-- Gerenciar os novos membros.
-- Realizar a chamada dos membros presentes nas reuniões ordinárias.
+**Motivações do Desenvolvimento:**
 
-Esses não são todos os motivos, mas são os que me fizeram começar a desenvolver um software próprio.
+1. **Dificuldade de Acesso Remoto aos Dados Cadastrais dos Membros e Congregados:**
+
+   - Atualmente, enfrentamos problemas para acessar os dados cadastrais de nossos membros e congregados quando necessário, especialmente quando se trata de acesso remoto. O "DashSA" irá fornecer um sistema seguro e prático para acessar e atualizar esses dados a partir de qualquer local, simplificando a administração de informações cruciais.
+
+2. **Gerenciamento de Novos Membros:**
+
+   - À medida que nossa congregação cresce, o gerenciamento eficaz de novos membros se torna uma prioridade. O "DashSA" oferecerá recursos que facilitam a inclusão e o acompanhamento de novos membros, garantindo que eles se sintam bem-vindos e parte integrante de nossa comunidade religiosa.
+
+3. **Realização de Chamadas para Membros nas Reuniões Ordinárias:**
+
+   - As reuniões ordinárias são um aspecto fundamental de nossa igreja. O "DashSA" simplificará a realização de chamadas dos membros presentes, tornando esse processo mais eficiente e preciso. Isso contribuirá para um melhor acompanhamento da frequência e engajamento dos membros em nossas atividades.
+
+**Outras Funcionalidades:**
+
+Além dessas motivações principais, o "DashSA" também incluirá outras funcionalidades importantes, como:
+
+- Gestão de eventos e programações da igreja.
+- Acompanhamento de contribuições financeiras.
+- Comunicação interna e envio de mensagens.
+- Relatórios e análises para auxiliar na tomada de decisões.
 
 ### Diagrama ERD - Entity Relationship Diagram
 
@@ -32,7 +49,7 @@ Essa é a estrutura inicial do banco de dados. E as entidades funcionam assim:
 
 ### Requisitos Funcionais
 
-Para garantiar a qualidade do software foi definido os requisitos funcionais, e inicialmente esse software deve:
+Para garantiar a qualidade do software nessa primeira versão foi definido alguns requisitos funcionais, e inicialmente esse software deve:
 
 - [x] Ter rotas privadas para o User com o papel de ADMIN;
 - [x] Gerenciar dos membros (Criar, Deletar, Editar, e Buscar);
