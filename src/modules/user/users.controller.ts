@@ -9,13 +9,13 @@ import {
 } from '@nestjs/common';
 import { ActiveUserId } from '../../shared/decorators/ActiveUserId';
 
-import { UploadRoleUseCase } from './useCases/update-role.usecase';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { FileDTO } from './dto/users.dto';
-import { UploadAvatarUserUseCase } from './useCases/upload-avatar.usecase';
-import { GetProfileUseCase } from './useCases/get-profile.usecase';
-import { UpdateUserDto } from './dto/update.dto';
 import { AuthGuard } from '../auth/auth.guard';
+import { UpdateUserDto } from './dto/update.dto';
+import { FileDTO } from './dto/users.dto';
+import { GetProfileUseCase } from './useCases/get-profile.usecase';
+import { UploadRoleUseCase } from './useCases/update-role.usecase';
+import { UploadAvatarUserUseCase } from './useCases/upload-avatar.usecase';
 
 @Controller('/users')
 export class UsersController {

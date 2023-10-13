@@ -15,7 +15,7 @@ import { DeleteEventUseCase } from './useCases/delete-event.usecase';
 import { GetEventsUseCase } from './useCases/get-events.usecase';
 import { UpdateEventUseCase } from './useCases/update-event.usecase';
 
-@Controller('event')
+@Controller('events')
 export class EventController {
   constructor(
     private readonly createEventUseCase: CreateEventUseCase,

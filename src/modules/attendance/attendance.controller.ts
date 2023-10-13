@@ -15,7 +15,7 @@ import { DeleteAttendanceUseCase } from './useCases/delete-attendance.usecase';
 import { GetAttendanceUseCase } from './useCases/get-attendance.usecase';
 import { UpdateAttendanceUseCase } from './useCases/update-attendance.usecase';
 
-@Controller('attendance')
+@Controller('attendances')
 export class AttendanceController {
   constructor(
     private readonly getAttendanceUseCase: GetAttendanceUseCase,
