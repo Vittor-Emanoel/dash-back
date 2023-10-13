@@ -1,18 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { IMembersRepository } from '../members.repository';
 import { PrismaService } from 'src/shared/database/prisma.service';
 import { Member } from 'src/shared/models/Member';
 import { CreateMemberDto } from '../../dto/create-member.dto';
+import { IMembersRepository } from '../members.repository';
 
 @Injectable()
 export class MembersRepository implements IMembersRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll(id: string): Promise<Member[]> {
+  async findAll(): Promise<Member[]> {
     const members = await this.prisma.member.findMany({
-      where: {
-        userId: id,
-      },
       select: {
         id: true,
         fullName: true,

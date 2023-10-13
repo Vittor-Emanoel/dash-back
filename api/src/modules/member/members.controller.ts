@@ -1,19 +1,18 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
 } from '@nestjs/common';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { UpdateMemberDto } from './dto/update-member.dto';
 import { CreateMemberUseCase } from './useCases/create-member.usecase';
+import { DeleteMemberUseCase } from './useCases/delete-member.usecase';
 import { GetMemberUseCase } from './useCases/get-member.usecase';
 import { UpdateMemberUseCase } from './useCases/update-member.usecase';
-import { DeleteMemberUseCase } from './useCases/delete-member.usecase';
-import { ActiveUserId } from 'src/shared/decorators/ActiveUserId';
 
 @Controller('members')
 export class MembersController {
@@ -29,15 +28,11 @@ export class MembersController {
     return this.createMemberUseCase.execute(createMemberDto);
   }
 
+  //@ActiveUserId() id: string
   @Get()
-  findAll(@ActiveUserId() id: string) {
-    return this.getMemberUseCase.execute(id);
+  findAll() {
+    return this.getMemberUseCase.execute();
   }
-
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.membersService.findOne(+id);
-  // }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateMemberDto: UpdateMemberDto) {
