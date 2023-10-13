@@ -1,9 +1,9 @@
-import { PrismaService } from 'src/shared/database/prisma.service';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { IEventRepository } from '../event.repositories';
+import { PrismaService } from 'src/shared/database/prisma.service';
 import { Event } from 'src/shared/models/Event';
 import { CreateEventDto } from '../../dto/create-event.dto';
 import { UpdateEventDto } from '../../dto/update-event.dto';
+import { IEventRepository } from '../event.repositories';
 
 @Injectable()
 export class EventRepository implements IEventRepository {
@@ -24,6 +24,11 @@ export class EventRepository implements IEventRepository {
           },
         },
       },
+      orderBy: [
+        {
+          date: 'desc',
+        },
+      ],
     });
   }
 
@@ -100,22 +105,11 @@ export class EventRepository implements IEventRepository {
     return event;
   }
 
-  async findByDate(date: Date): Promise<Event[]> {
-    const event = await this.prisma.event.findMany({
-      where: {
-        date: {
-          equals: date,
-        },
-      },
-    });
-
-    return event;
-  }
-
-  async findByName(name: string): Promise<Event[]> {
-    const event = await this.prisma.event.findMany({
+  async findEvent(name: string, date: string): Promise<Event> {
+    const event = await this.prisma.event.findFirst({
       where: {
         name,
+        date,
       },
     });
 

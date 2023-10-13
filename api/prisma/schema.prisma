@@ -73,7 +73,7 @@ model Office {
 model Event {
   id          String       @id @default(uuid())
   name        String
-  date        DateTime     @db.Date
+  date        DateTime
   attendances Attendance[]
 
   @@map("events")

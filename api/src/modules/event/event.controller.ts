@@ -1,34 +1,46 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { EventService } from './event.service';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { CreateEventDto } from './dto/create-event.dto';
+
 import { UpdateEventDto } from './dto/update-event.dto';
+import { CreateEventUseCase } from './useCases/create-event.usecase';
+import { DeleteEventUseCase } from './useCases/delete-event.usecase';
+import { GetEventsUseCase } from './useCases/get-events.usecase';
+import { UpdateEventUseCase } from './useCases/update-event.usecase';
 
 @Controller('event')
 export class EventController {
-  constructor(private readonly eventService: EventService) {}
+  constructor(
+    private readonly createEventUseCase: CreateEventUseCase,
+    private readonly getEventsUseCase: GetEventsUseCase,
+    private readonly updateEventsUseCase: UpdateEventUseCase,
+    private readonly deleteEventsUseCase: DeleteEventUseCase,
+  ) {}
 
   @Post()
   create(@Body() createEventDto: CreateEventDto) {
-    return this.eventService.create(createEventDto);
+    return this.createEventUseCase.execute(createEventDto);
   }
 
   @Get()
   findAll() {
-    return this.eventService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.eventService.findOne(+id);
+    return this.getEventsUseCase.execute();
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateEventDto: UpdateEventDto) {
-    return this.eventService.update(+id, updateEventDto);
+    return this.updateEventsUseCase.execute(id, updateEventDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.eventService.remove(+id);
+    return this.deleteEventsUseCase.execute(id);
   }
 }

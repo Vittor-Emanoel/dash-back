@@ -1,7 +1,6 @@
-import { Injectable } from '@nestjs/common';
-import { IEventRepository } from '../repositories/event.repositories';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateEventDto } from '../dto/create-event.dto';
-import { FormatDate } from 'src/shared/utils/date';
+import { IEventRepository } from '../repositories/event.repositories';
 
 @Injectable()
 export class CreateEventUseCase {
@@ -10,8 +9,14 @@ export class CreateEventUseCase {
   async execute(data: CreateEventDto) {
     const { name, date } = data;
 
-    const eventDate = await this.eventRepository.findByDate(date);
+    const existingEvent = await this.eventRepository.findEvent(name, date);
 
-    return eventDate;
+    if (existingEvent) {
+      throw new ConflictException(
+        'Event already exists with the same date and name',
+      );
+    }
+
+    await this.eventRepository.create(data);
   }
 }
