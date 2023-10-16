@@ -51,22 +51,22 @@ Essa é a estrutura inicial do banco de dados. E as entidades funcionam assim:
 
 Para garantiar a qualidade do software nessa primeira versão foi definido alguns requisitos funcionais, e inicialmente esse software deve:
 
-- [x] Ter rotas privadas para o User com o papel de ADMIN;
-- [x] Gerenciar dos membros (Criar, Deletar, Editar, e Buscar);
-- [x] Gerenciar das igrejas (Criar, Deletar, Editar, e Buscar);
-- [x] Realizar a criação de eventos e criar a chamada dos membros presentes;
-- [ ] Prover documentos como (Cartas, Requerimentos e Etc).
-- [ ] Gerar relatórios em PDF sobre a quantidade de membros e lista de chamada.
+- [x] Ter rotas de acesso restrito para usuários com a função de ADMIN;
+- [x] Gerenciar membros, incluindo a capacidade de criar, deletar, editar e buscar informações sobre eles.
+- [x] Gerenciar igrejas, permitindo a criação, exclusão, edição e busca de informações;
+- [x] Capacitar a criação de eventos e registrar a presença dos membros;
+- [ ] Fornecer documentos, como cartas e requerimentos, entre outros.
+- [ ] Gerar relatórios em formato PDF que apresentem informações sobre a quantidade de membros e listas de presença.
 
 ## 💻 Tecnologias utilizadas
 
 As Técnologias definas para o back-end foram:
 
-- NESTJS
-- POSTGRESQL
-- PRISMAORM
-- SUPABASE
-- NODEMAILER
+- NestJS
+- PostgreSQL
+- PrismaORM
+- Supabase
+- Nodemailer
 
 ## Informações finais
 
