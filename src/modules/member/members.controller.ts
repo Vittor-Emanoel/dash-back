@@ -27,25 +27,41 @@ export class MembersController {
     private readonly deleteMemberUseCase: DeleteMemberUseCase,
   ) {}
 
+<<<<<<< HEAD
   @Auth(Role['ADMIN'], Role['SECRETARY'], Role['SHEPHERD'])
+=======
+  @Auth(Role['ADMIN'])
+>>>>>>> 3dfcdde (feat: create custom decorator for manupulate query)
   @Post()
   create(@Body() createMemberDto: CreateMemberDto) {
     return this.createMemberUseCase.execute(createMemberDto);
   }
 
+<<<<<<< HEAD
   @Auth(Role['ADMIN'], Role['SECRETARY'], Role['SHEPHERD'])
+=======
+  @Auth(Role['ADMIN'])
+>>>>>>> 3dfcdde (feat: create custom decorator for manupulate query)
   @Get()
   findAll(@VerifyRole() user: IUserPayload) {
     return this.getMemberUseCase.execute(user);
   }
 
+<<<<<<< HEAD
   @Auth(Role['ADMIN'], Role['SECRETARY'])
+=======
+  @Auth(Role['ADMIN'])
+>>>>>>> 3dfcdde (feat: create custom decorator for manupulate query)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateMemberDto: UpdateMemberDto) {
     return this.updateMemberUseCase.execute(id, updateMemberDto);
   }
 
+<<<<<<< HEAD
   @Auth(Role['ADMIN'], Role['SECRETARY'])
+=======
+  @Auth(Role['ADMIN'])
+>>>>>>> 3dfcdde (feat: create custom decorator for manupulate query)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.deleteMemberUseCase.execute(id);
