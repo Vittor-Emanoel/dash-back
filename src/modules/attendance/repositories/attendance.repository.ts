@@ -1,4 +1,4 @@
-import { Attendance } from 'src/shared/models/Attendance';
+import { Attendance } from '../dto/attendance';
 import { CreateAttendanceDto } from '../dto/create-attendance.dto';
 import { UpdateAttendanceDto } from '../dto/update-attendance.dto';
 

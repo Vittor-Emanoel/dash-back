@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 
 import { PrismaService } from 'src/shared/database/prisma.service';
-import { IAttendanceRepository } from '../attendance.repository';
 import { CreateAttendanceDto } from '../../dto/create-attendance.dto';
-import { Attendance } from 'src/shared/models/Attendance';
+import { IAttendanceRepository } from '../attendance.repository';
+
+import { Attendance } from '../../dto/attendance';
 import { UpdateAttendanceDto } from '../../dto/update-attendance.dto';
 
 @Injectable()

@@ -26,5 +26,9 @@ export class CreateMemberDto {
   postalCode: string;
 
   @IsString()
+  @IsNotEmpty()
   officeId: string;
+
+  @IsString()
+  shepherdId?: string;
 }

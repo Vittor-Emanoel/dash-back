@@ -4,7 +4,7 @@ import { PrismaService } from 'src/shared/database/prisma.service';
 import { UserCreatedDTO, UserProfileDTO } from 'src/modules/auth/dto/auth.dto';
 import { IUsersRepository } from '../user.repository';
 
-import { Role, UpdateUserDto } from '../../dto/update.dto';
+import { UpdateUserDto } from '../../dto/update.dto';
 
 @Injectable()
 export class UsersRepository implements IUsersRepository {
@@ -28,11 +28,14 @@ export class UsersRepository implements IUsersRepository {
     });
   }
 
-  async updateRole(userId: string, role: Role): Promise<UpdateUserDto | null> {
+  async updateRole(
+    userId: string,
+    role: UpdateUserDto['role'],
+  ): Promise<UpdateUserDto | null> {
     const user = await this.prisma.user.update({
       where: { id: userId },
       data: {
-        role: role,
+        role,
       },
       select: {
         name: true,
@@ -41,7 +44,7 @@ export class UsersRepository implements IUsersRepository {
       },
     });
 
-    return { ...user, role };
+    return user;
   }
   async me(userId: string): Promise<UserProfileDTO | null> {
     const user = await this.prisma.user.findUnique({
@@ -53,7 +56,7 @@ export class UsersRepository implements IUsersRepository {
         role: true,
         atavarUrl: true,
         createdAt: true,
-        Church: {
+        church: {
           select: {
             name: true,
           },

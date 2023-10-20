@@ -1,3 +1,0 @@
--- AlterTable
-ALTER TABLE "users" ADD COLUMN     "atavarUrl" TEXT,
-ADD COLUMN     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;

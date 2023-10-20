@@ -28,8 +28,10 @@ model User {
   role      Role     @default(USER)
   atavarUrl String?
   createdAt DateTime @default(now())
-  Church    Church?
-  Member    Member[]
+
+  churchId String?
+  church   Church[]
+  Member   Member[]
 
   @@map("users")
 }
@@ -37,9 +39,9 @@ model User {
 model Church {
   id         String   @id @default(uuid())
   name       String   @unique
-  shepherdId String   @unique
+  shepherdId String
   members    Member[]
-  user       User     @relation(fields: [shepherdId], references: [id])
+  shepherd   User     @relation(fields: [shepherdId], references: [id])
 
   @@map("churchs")
 }
@@ -53,11 +55,12 @@ model Member {
   houseNumber String
   postalCode  String
   officeId    String
-  userId      String?
-  church      Church       @relation(fields: [churchId], references: [id])
-  office      Office       @relation(fields: [officeId], references: [id])
-  shepherdId  User?        @relation(fields: [userId], references: [id])
-  Attendance  Attendance[]
+  shepherdId  String?
+  attendance  Attendance[]
+
+  church   Church @relation(fields: [churchId], references: [id])
+  office   Office @relation(fields: [officeId], references: [id])
+  shepherd User?  @relation(fields: [shepherdId], references: [id])
 
   @@map("members")
 }
@@ -83,9 +86,10 @@ model Attendance {
   id               String @id @default(uuid())
   memberId         String
   eventId          String
-  member           Member @relation(fields: [memberId], references: [id])
-  event            Event  @relation(fields: [eventId], references: [id])
   attendanceStatus String
+
+  member Member @relation(fields: [memberId], references: [id])
+  event  Event  @relation(fields: [eventId], references: [id])
 
   @@map("attendances")
 }

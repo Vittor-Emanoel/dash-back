@@ -1,10 +1,10 @@
-import { PrismaService } from 'src/shared/database/prisma.service';
-import { IOfficeRepository } from '../office-repository';
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { PrismaService } from 'src/shared/database/prisma.service';
 import { UpdateOfficeDto } from '../../dto/update-office.dto';
+import { IOfficeRepository } from '../office-repository';
 
 import { CreateOfficeDto } from '../../dto/create-office.dto';
-import { Office } from 'src/shared/models/Office';
+import { Office } from '../../dto/office.dto';
 
 @Injectable()
 export class OfficeRepository implements IOfficeRepository {

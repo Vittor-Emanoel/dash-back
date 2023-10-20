@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/shared/database/prisma.service';
-import { Event } from 'src/shared/models/Event';
+
 import { CreateEventDto } from '../../dto/create-event.dto';
+import { Event } from '../../dto/event.dto';
 import { UpdateEventDto } from '../../dto/update-event.dto';
 import { IEventRepository } from '../event.repositories';
 

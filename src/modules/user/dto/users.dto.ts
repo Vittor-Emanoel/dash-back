@@ -2,7 +2,7 @@ export type UserUpdate = {
   name: string;
   email: string;
   password: string;
-  role: 'ADMIN' | 'FINANCE' | 'SECRETARY' | 'USER';
+  role: 'ADMIN' | 'SECRETARY' | 'FINANCE' | 'USER' | 'SHEPHERD';
 };
 
 export type UserCreated = {
@@ -10,7 +10,7 @@ export type UserCreated = {
   name: string;
   email: string;
   password: string;
-  role: 'ADMIN' | 'FINANCE' | 'SECRETARY' | 'USER' | 'SHEPHERD';
+  role: 'ADMIN' | 'SECRETARY' | 'FINANCE' | 'USER' | 'SHEPHERD';
   avatarUrl?: string;
   createdAt?: Date;
 };

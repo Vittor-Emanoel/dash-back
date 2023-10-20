@@ -1,4 +1,4 @@
-import { Church } from 'src/shared/models/Church';
+import { Church } from '../dto/church.dto';
 import { CreateChurchDto } from '../dto/create-church.dto';
 import { UpdateChurchDto } from '../dto/update-church.dto';
 
