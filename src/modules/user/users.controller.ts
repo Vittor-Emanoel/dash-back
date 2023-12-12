@@ -10,12 +10,9 @@ import {
 import { ActiveUserId } from '../../shared/decorators/active-userId.decorator';
 
 import { FileInterceptor } from '@nestjs/platform-express';
-<<<<<<< HEAD
-import { AuthGuard } from '../../shared/guards/auth.guard';
-=======
 
-import { AuthGuard } from 'src/shared/guards/auth.guard';
->>>>>>> 3dfcdde (feat: create custom decorator for manupulate query)
+import { AuthGuard } from '../../shared/guards/auth.guard';
+
 import { UpdateUserDto } from './dto/update.dto';
 import { FileDTO } from './dto/users.dto';
 import { GetProfileUseCase } from './useCases/get-profile.usecase';

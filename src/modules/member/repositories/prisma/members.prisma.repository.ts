@@ -71,6 +71,39 @@ export class MembersRepository implements IMembersRepository {
     return member;
   }
 
+  async find(): Promise<Member[]> {
+    const members = await this.prisma.member.findMany({
+      select: {
+        id: true,
+        fullName: true,
+        phone: true,
+        street: true,
+        houseNumber: true,
+        postalCode: true,
+        church: {
+          select: {
+            id: true,
+            name: true,
+            shepherd: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
+        office: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+    });
+
+    return members;
+  }
+
   async create(data: CreateMemberDto): Promise<Member> {
     const member = await this.prisma.member.create({
       data,

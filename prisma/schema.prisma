@@ -15,7 +15,6 @@ datasource db {
 enum Role {
   USER
   ADMIN
-  SHEPHERD
   SECRETARY
   FINANCE
 }

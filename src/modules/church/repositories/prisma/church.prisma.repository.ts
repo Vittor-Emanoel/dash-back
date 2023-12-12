@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/shared/database/prisma.service';
 import { IChurchRepository } from '../church.repository';
 
-import { Church } from '@prisma/client';
+import { Church } from '../../dto/church.dto';
 import { CreateChurchDto } from '../../dto/create-church.dto';
 import { UpdateChurchDto } from '../../dto/update-church.dto';
 

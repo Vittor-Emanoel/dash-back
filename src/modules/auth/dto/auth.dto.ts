@@ -1,5 +1,3 @@
-import { Role } from '@prisma/client';
-
 export type SignInDto = {
   email: string;
   password: string;
@@ -18,7 +16,7 @@ export type UserCreatedDTO = {
   password: string;
   atavarUrl?: string;
   createdAt: Date;
-  role: Role;
+  role: 'USER' | 'ADMIN' | 'SHEPHERD' | 'SECRETARY' | 'FINANCE';
 };
 
 export type UserProfileDTO = {
@@ -26,5 +24,5 @@ export type UserProfileDTO = {
   name: string;
   email: string;
   atavarUrl?: string;
-  role: Role;
+  role: 'USER' | 'ADMIN' | 'SHEPHERD' | 'SECRETARY' | 'FINANCE';
 };
