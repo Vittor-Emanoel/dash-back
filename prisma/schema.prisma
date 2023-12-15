@@ -17,49 +17,62 @@ enum Role {
   ADMIN
   SECRETARY
   FINANCE
+  SHEPHERD
 }
 
-model User {
+model Admin {
   id        String   @id @default(uuid())
   name      String
   email     String   @unique
   password  String
-  role      Role     @default(USER)
+  role      Role     @default(ADMIN)
   atavarUrl String?
   createdAt DateTime @default(now())
-
-  churchId String?
-  church   Church[]
-  Member   Member[]
 
   @@map("users")
 }
 
+model Shepherd {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  atavarUrl String?
+  church    Church   @relation(fields: [churchId], references: [id])
+  role      Role     @default(SHEPHERD)
+  createdAt DateTime @default(now())
+  churchId  String
+
+  @@map("shepherd")
+}
+
 model Church {
-  id         String   @id @default(uuid())
-  name       String   @unique
-  shepherdId String
-  members    Member[]
-  shepherd   User     @relation(fields: [shepherdId], references: [id])
+  id          String     @id @default(uuid())
+  name        String     @unique
+  shepherdId  String
+  description String?
+  members     Member[]
+  Shepherd    Shepherd[]
 
   @@map("churchs")
 }
 
 model Member {
-  id          String       @id @default(uuid())
-  fullName    String
-  phone       String       @unique
-  churchId    String
-  street      String
-  houseNumber String
-  postalCode  String
-  officeId    String
-  shepherdId  String?
-  attendance  Attendance[]
+  id            String      @id @default(uuid())
+  fullName      String
+  ssn           String      @unique
+  phone         String      @unique
+  street        String
+  baptismDate   String?
+  houseNumber   String
+  postalCode    String
+  churchId      String
+  officeId      String
+  participation Attendance? @relation(fields: [attendanceId], references: [id])
 
-  church   Church @relation(fields: [churchId], references: [id])
-  office   Office @relation(fields: [officeId], references: [id])
-  shepherd User?  @relation(fields: [shepherdId], references: [id])
+  church       Church  @relation(fields: [churchId], references: [id])
+  office       Office  @relation(fields: [officeId], references: [id])
+  attendanceId String?
 
   @@map("members")
 }
@@ -87,8 +100,8 @@ model Attendance {
   eventId          String
   attendanceStatus String
 
-  member Member @relation(fields: [memberId], references: [id])
-  event  Event  @relation(fields: [eventId], references: [id])
+  event  Event    @relation(fields: [eventId], references: [id])
+  Member Member[]
 
   @@map("attendances")
 }
