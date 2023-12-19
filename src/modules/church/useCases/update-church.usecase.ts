@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { IChurchRepository } from '../repositories/church.repository';
 import { UpdateChurchDto } from '../dto/update-church.dto';
+import { IChurchRepository } from '../repositories/church.repository';
 
 @Injectable()
 export class UpdateChurchUseCase {

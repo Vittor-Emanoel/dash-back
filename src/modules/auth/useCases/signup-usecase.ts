@@ -1,9 +1,9 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 
-import { IAuthRepository } from '../repositories/auth.repository';
-import { hash } from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
+import { hash } from 'bcryptjs';
 import { SignupDto } from '../dto/signup.schema';
+import { IAuthRepository } from '../repositories/auth.repository';
 
 @Injectable()
 export class SignupUseCase {
@@ -23,7 +23,7 @@ export class SignupUseCase {
 
     const hashedPassword = await hash(password, 12);
 
-    const user = await this.authRepository.save({
+    const user = await this.authRepository.create({
       name,
       email,
       password: hashedPassword,

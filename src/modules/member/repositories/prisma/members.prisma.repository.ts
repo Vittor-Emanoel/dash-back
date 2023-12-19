@@ -9,15 +9,8 @@ import { IMembersRepository } from '../members.repository';
 export class MembersRepository implements IMembersRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll(id?: string): Promise<Member[]> {
+  async findAll(): Promise<Member[]> {
     const members = await this.prisma.member.findMany({
-      where: {
-        church: {
-          shepherd: {
-            id,
-          },
-        },
-      },
       select: {
         id: true,
         fullName: true,
@@ -25,18 +18,7 @@ export class MembersRepository implements IMembersRepository {
         street: true,
         houseNumber: true,
         postalCode: true,
-        church: {
-          select: {
-            id: true,
-            name: true,
-            shepherd: {
-              select: {
-                id: true,
-                name: true,
-              },
-            },
-          },
-        },
+        church: true,
         office: {
           select: {
             id: true,
@@ -57,12 +39,6 @@ export class MembersRepository implements IMembersRepository {
           select: {
             id: true,
             name: true,
-            shepherd: {
-              select: {
-                id: true,
-                name: true,
-              },
-            },
           },
         },
       },
@@ -84,12 +60,6 @@ export class MembersRepository implements IMembersRepository {
           select: {
             id: true,
             name: true,
-            shepherd: {
-              select: {
-                id: true,
-                name: true,
-              },
-            },
           },
         },
         office: {

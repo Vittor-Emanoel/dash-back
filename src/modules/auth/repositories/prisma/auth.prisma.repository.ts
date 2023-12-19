@@ -8,7 +8,7 @@ import { UserCreatedDTO } from '../../dto/auth.dto';
 export class AuthPrismaRepository implements IAuthRepository {
   constructor(private prisma: PrismaService) {}
 
-  async save(data: UserCreatedDTO): Promise<UserCreatedDTO> {
+  async create(data: UserCreatedDTO): Promise<UserCreatedDTO> {
     return await this.prisma.user.create({
       data,
     });

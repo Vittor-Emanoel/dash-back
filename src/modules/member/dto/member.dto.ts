@@ -10,9 +10,5 @@ export type Member = {
   church?: {
     id: string;
     name: string;
-    shepherd: {
-      id: string;
-      name: string;
-    };
   };
 };
