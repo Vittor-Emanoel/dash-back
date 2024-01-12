@@ -13,6 +13,8 @@ export const VerifyRole = createParamDecorator<undefined>(
       throw new UnauthorizedException();
     }
 
-    return user;
+    const { sub: id, name, email, role } = user;
+
+    return { id, name, email, role };
   },
 );

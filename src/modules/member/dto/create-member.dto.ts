@@ -30,5 +30,5 @@ export class CreateMemberDto {
   officeId: string;
 
   @IsString()
-  shepherdId?: string;
+  shepherd_id: string;
 }

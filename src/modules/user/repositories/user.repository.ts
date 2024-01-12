@@ -4,6 +4,7 @@ import { UpdateUserDto } from '../dto/update.dto';
 
 export abstract class IUsersRepository {
   abstract findById(userId: string): Promise<UserCreatedDTO | null>;
+  abstract findAll(): Promise<UserCreatedDTO[]>;
   abstract uploadAvatar(id: string, path: string): Promise<void>;
   abstract updateRole(
     userId: string,

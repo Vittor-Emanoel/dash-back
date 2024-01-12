@@ -10,6 +10,7 @@ import { AuthGuard } from '../../shared/guards/auth.guard';
 import { UsersRepository } from './repositories/prisma/user.prisma.repository';
 import { IUsersRepository } from './repositories/user.repository';
 import { GetProfileUseCase } from './useCases/get-profile.usecase';
+import { GetAllUseCase } from './useCases/getAll.usecase';
 import { UploadRoleUseCase } from './useCases/update-role.usecase';
 import { UploadAvatarUserUseCase } from './useCases/upload-avatar.usecase';
 
@@ -20,6 +21,7 @@ import { UploadAvatarUserUseCase } from './useCases/upload-avatar.usecase';
     UploadRoleUseCase,
     UploadAvatarUserUseCase,
     GetProfileUseCase,
+    GetAllUseCase,
     {
       provide: APP_GUARD,
       useClass: AuthGuard,

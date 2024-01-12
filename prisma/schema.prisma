@@ -20,7 +20,7 @@ enum Role {
   FINANCE
 }
 
-model User {
+model Admin {
   id        String  @id @default(uuid())
   name      String
   email     String  @unique
@@ -30,32 +30,49 @@ model User {
 
   createdAt DateTime @default(now())
 
+  @@map("admins")
+}
+
+model User {
+  id        String  @id @default(uuid())
+  name      String
+  email     String  @unique
+  password  String
+  role      Role    @default(SHEPHERD)
+  atavarUrl String?
+
+  createdAt DateTime @default(now())
+  churchs   Church[]
+  Member    Member[]
+
   @@map("users")
 }
 
 model Church {
-  id         String   @id @default(uuid())
-  name       String   @unique
-  shepherdId String   @unique
-  members    Member[]
+  id          String   @id @default(uuid())
+  name        String   @unique
+  shepherd_id String
+  members     Member[]
+  shepherd    User     @relation(fields: [shepherd_id], references: [id])
 
   @@map("churchs")
 }
 
 model Member {
-  id          String  @id @default(uuid())
+  id          String @id @default(uuid())
   fullName    String
-  phone       String  @unique
+  phone       String @unique
   churchId    String
   street      String
   houseNumber String
   postalCode  String
   officeId    String
-  userId      String?
-  church      Church  @relation(fields: [churchId], references: [id])
-  office      Office  @relation(fields: [officeId], references: [id])
+  shepherd    User   @relation(fields: [shepherd_id], references: [id])
+  church      Church @relation(fields: [churchId], references: [id])
+  office      Office @relation(fields: [officeId], references: [id])
 
-  Attendance Attendance[]
+  Attendance  Attendance[]
+  shepherd_id String
 
   @@map("members")
 }

@@ -5,6 +5,6 @@ import { IMembersRepository } from '../repositories/members.repository';
 export class GetAllMembers {
   constructor(private readonly membersRepository: IMembersRepository) {}
   async execute() {
-    return this.membersRepository.find();
+    return this.membersRepository.findAll();
   }
 }

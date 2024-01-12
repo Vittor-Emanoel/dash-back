@@ -14,10 +14,8 @@ export class ChurchRepository implements IChurchRepository {
     const church = await this.prisma.church.create({
       data,
       select: {
-        id: true,
         name: true,
-        shepherdId: true,
-        members: true,
+        shepherd_id: true,
       },
     });
 
@@ -37,7 +35,7 @@ export class ChurchRepository implements IChurchRepository {
       select: {
         id: true,
         name: true,
-        shepherdId: true,
+        shepherd_id: true,
         members: true,
       },
       orderBy: [

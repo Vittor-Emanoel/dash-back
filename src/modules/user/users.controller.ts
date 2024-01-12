@@ -16,6 +16,7 @@ import { AuthGuard } from '../../shared/guards/auth.guard';
 import { UpdateUserDto } from './dto/update.dto';
 import { FileDTO } from './dto/users.dto';
 import { GetProfileUseCase } from './useCases/get-profile.usecase';
+import { GetAllUseCase } from './useCases/getAll.usecase';
 import { UploadRoleUseCase } from './useCases/update-role.usecase';
 import { UploadAvatarUserUseCase } from './useCases/upload-avatar.usecase';
 
@@ -25,7 +26,13 @@ export class UsersController {
     private readonly updateRoleUseCase: UploadRoleUseCase,
     private readonly uploadAvatarUseCase: UploadAvatarUserUseCase,
     private readonly getProfileUseCase: GetProfileUseCase,
+    private readonly getAllUseCase: GetAllUseCase,
   ) {}
+
+  @Get('/')
+  async findAll() {
+    return this.getAllUseCase.execute();
+  }
 
   @Get('/me')
   async me(@ActiveUserId() userId: string) {

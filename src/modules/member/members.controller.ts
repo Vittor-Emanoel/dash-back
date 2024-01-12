@@ -38,17 +38,16 @@ export class MembersController {
   @Auth(Role['ADMIN'], Role['SECRETARY'], Role['SHEPHERD'])
   @Auth(Role['ADMIN'])
   @Get()
-  findAll(@VerifyRole() user: IUserPayload) {
-    console.log(user);
-
+  find(@VerifyRole() user: IUserPayload) {
     if (user.role === 'ADMIN') {
       return this.getAllMembersUseCase.execute();
     }
-    return this.getMemberUseCase.execute(user);
+ 
+      return this.getMemberUseCase.execute(user.id);
+    
   }
 
   @Auth(Role['ADMIN'], Role['SECRETARY'])
-  @Auth(Role['ADMIN'])
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateMemberDto: UpdateMemberDto) {
     return this.updateMemberUseCase.execute(id, updateMemberDto);

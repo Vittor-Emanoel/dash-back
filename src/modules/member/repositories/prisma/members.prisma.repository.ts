@@ -9,8 +9,9 @@ import { IMembersRepository } from '../members.repository';
 export class MembersRepository implements IMembersRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll(): Promise<Member[]> {
+  async find(id: string): Promise<Member[]> {
     const members = await this.prisma.member.findMany({
+      where: { shepherd_id: id },
       select: {
         id: true,
         fullName: true,
@@ -47,7 +48,7 @@ export class MembersRepository implements IMembersRepository {
     return member;
   }
 
-  async find(): Promise<Member[]> {
+  async findAll(): Promise<Member[]> {
     const members = await this.prisma.member.findMany({
       select: {
         id: true,
