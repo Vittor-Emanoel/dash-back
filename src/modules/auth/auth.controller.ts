@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
 
-import { IsPublic } from '../../shared/decorators/is-public.decorator';
+import { IsPublic } from 'src/shared/decorators/is-public.decorator';
 import { SignInDto } from './dto/signin.schema';
 import { SignupDto } from './dto/signup.schema';
 import { SigninUseCase } from './useCases/signin-usecase';

@@ -2,13 +2,15 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
 import { APP_GUARD } from '@nestjs/core';
-import { AttendanceModule } from './modules/attendance/attendance.module';
-import { AuthModule } from './modules/auth/auth.module';
+
+import { UsersModule } from './modules/admin/users.module';
+
 import { ChurchsModule } from './modules/church/churchs.module';
-import { EventModule } from './modules/event/event.module';
+
+import { AuthModule } from './modules/auth/auth.module';
 import { MembersModule } from './modules/member/members.module';
 import { OfficesModule } from './modules/office/offices.module';
-import { UsersModule } from './modules/user/users.module';
+import { ShepherdModule } from './modules/shepherd/shepherd.module';
 import { DatabaseModule } from './shared/database/prisma.module';
 import { AuthGuard } from './shared/guards/auth.guard';
 
@@ -20,9 +22,8 @@ import { AuthGuard } from './shared/guards/auth.guard';
     UsersModule,
     ChurchsModule,
     OfficesModule,
-    AttendanceModule,
     MembersModule,
-    EventModule,
+    ShepherdModule,
   ],
   controllers: [],
   providers: [

@@ -1,5 +1,5 @@
+import { Member } from 'src/shared/types/member';
 import { CreateMemberDto } from '../dto/create-member.dto';
-import { Member } from '../dto/member.dto';
 import { UpdateMemberDto } from '../dto/update-member.dto';
 
 export abstract class IMembersRepository {

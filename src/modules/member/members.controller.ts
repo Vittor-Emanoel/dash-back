@@ -7,8 +7,6 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { Auth } from 'src/shared/decorators/auth.decorator';
-import { Role } from 'src/shared/decorators/roles.decorator';
 import { VerifyRole } from 'src/shared/decorators/verify-role.decorator';
 import { IUserPayload } from 'src/shared/types/payload';
 import { CreateMemberDto } from './dto/create-member.dto';
@@ -29,32 +27,25 @@ export class MembersController {
     private readonly deleteMemberUseCase: DeleteMemberUseCase,
   ) {}
 
-  @Auth(Role['ADMIN'], Role['SECRETARY'], Role['SHEPHERD'])
   @Post()
   create(@Body() createMemberDto: CreateMemberDto) {
     return this.createMemberUseCase.execute(createMemberDto);
   }
 
-  @Auth(Role['ADMIN'], Role['SECRETARY'], Role['SHEPHERD'])
-  @Auth(Role['ADMIN'])
   @Get()
   find(@VerifyRole() user: IUserPayload) {
     if (user.role === 'ADMIN') {
       return this.getAllMembersUseCase.execute();
     }
- 
-      return this.getMemberUseCase.execute(user.id);
-    
+
+    return this.getMemberUseCase.execute(user.id);
   }
 
-  @Auth(Role['ADMIN'], Role['SECRETARY'])
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateMemberDto: UpdateMemberDto) {
     return this.updateMemberUseCase.execute(id, updateMemberDto);
   }
 
-  @Auth(Role['ADMIN'], Role['SECRETARY'])
-  @Auth(Role['ADMIN'])
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.deleteMemberUseCase.execute(id);

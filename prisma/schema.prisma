@@ -13,14 +13,24 @@ datasource db {
 }
 
 enum Role {
-  USER
   ADMIN
-  SHEPHERD
-  SECRETARY
   FINANCE
+  SECRETARY
 }
 
 model Admin {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(ADMIN)
+  atavarUrl String?
+  createdAt DateTime @default(now())
+
+  @@map("admins")
+}
+
+model Shepherd {
   id        String  @id @default(uuid())
   name      String
   email     String  @unique
@@ -29,50 +39,36 @@ model Admin {
   atavarUrl String?
 
   createdAt DateTime @default(now())
+  churchId  String
+  members   Member[]
+  church    Church?  @relation(fields: [churchId], references: [id])
 
-  @@map("admins")
-}
-
-model User {
-  id        String  @id @default(uuid())
-  name      String
-  email     String  @unique
-  password  String
-  role      Role    @default(SHEPHERD)
-  atavarUrl String?
-
-  createdAt DateTime @default(now())
-  churchs   Church[]
-  Member    Member[]
-
-  @@map("users")
+  @@map("shepherds")
 }
 
 model Church {
-  id          String   @id @default(uuid())
-  name        String   @unique
-  shepherd_id String
-  members     Member[]
-  shepherd    User     @relation(fields: [shepherd_id], references: [id])
+  id         String     @id @default(uuid())
+  name       String     @unique
+  shepherdId String
+  members    Member[]
+  shepherd   Shepherd[]
 
   @@map("churchs")
 }
 
 model Member {
-  id          String @id @default(uuid())
+  id          String    @id @default(uuid())
   fullName    String
-  phone       String @unique
-  churchId    String
+  phone       String    @unique
   street      String
   houseNumber String
   postalCode  String
+  churchId    String
   officeId    String
-  shepherd    User   @relation(fields: [shepherd_id], references: [id])
-  church      Church @relation(fields: [churchId], references: [id])
-  office      Office @relation(fields: [officeId], references: [id])
-
-  Attendance  Attendance[]
-  shepherd_id String
+  church      Church    @relation(fields: [churchId], references: [id])
+  office      Office    @relation(fields: [officeId], references: [id])
+  shepherd    Shepherd? @relation(fields: [shepherdId], references: [id])
+  shepherdId  String?
 
   @@map("members")
 }
@@ -83,24 +79,4 @@ model Office {
   members Member[]
 
   @@map("offices")
-}
-
-model Event {
-  id          String       @id @default(uuid())
-  name        String
-  date        DateTime
-  attendances Attendance[]
-
-  @@map("events")
-}
-
-model Attendance {
-  id               String @id @default(uuid())
-  memberId         String
-  eventId          String
-  member           Member @relation(fields: [memberId], references: [id])
-  event            Event  @relation(fields: [eventId], references: [id])
-  attendanceStatus String
-
-  @@map("attendances")
 }
