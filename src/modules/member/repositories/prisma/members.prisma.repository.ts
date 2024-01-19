@@ -12,7 +12,7 @@ export class MembersRepository implements IMembersRepository {
 
   async find(id: string): Promise<Member[] | null> {
     const members = await this.prisma.member.findMany({
-      where: { shepherdId: id },
+      where: { churchId: id },
       select: {
         id: true,
         fullName: true,
@@ -62,8 +62,9 @@ export class MembersRepository implements IMembersRepository {
           select: {
             id: true,
             name: true,
-            Shepherd: {
+            shepherd: {
               select: {
+                id: true,
                 name: true,
               },
             },

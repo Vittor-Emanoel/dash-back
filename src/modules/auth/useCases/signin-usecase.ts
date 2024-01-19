@@ -1,9 +1,9 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 
-import { IAuthRepository } from '../repositories/auth.repository';
-import { compare } from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
-import { SignInDto } from '../dto/signin.schema';
+import { compare } from 'bcryptjs';
+import { SignInDto } from '../dto/signin.dto';
+import { IAuthRepository } from '../repositories/auth.repository';
 
 @Injectable()
 export class SigninUseCase {
@@ -22,6 +22,8 @@ export class SigninUseCase {
     }
 
     const isPasswordValid = await this.comparePass(password, user.password);
+
+    console.log(isPasswordValid);
 
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid credentials');

@@ -2,7 +2,7 @@ import { ConflictException, Injectable } from '@nestjs/common';
 
 import { JwtService } from '@nestjs/jwt';
 import { hash } from 'bcryptjs';
-import { SignupDto } from '../dto/signup.schema';
+import { SignupDto } from '../dto/signup.dto';
 import { IAuthRepository } from '../repositories/auth.repository';
 
 @Injectable()

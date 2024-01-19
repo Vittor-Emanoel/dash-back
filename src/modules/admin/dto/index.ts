@@ -1,3 +1,5 @@
+import { Role } from '@prisma/client';
+
 export type CreateAdmin = {
   name: string;
   email: string;
@@ -16,7 +18,7 @@ export type AdminProfileDTO = {
   name: string;
   email: string;
   atavarUrl?: string;
-  role: 'USER' | 'ADMIN' | 'SHEPHERD' | 'SECRETARY' | 'FINANCE';
+  role: Role;
 };
 
 export type UploadAvatar = {

@@ -27,8 +27,4 @@ export class CreateMemberDto {
   @IsString()
   @IsNotEmpty()
   officeId: string;
-
-  @IsString()
-  @IsNotEmpty()
-  shepherdId: string;
 }

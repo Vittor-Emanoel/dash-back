@@ -1,5 +1,5 @@
-import { UserCreatedDTO } from '../dto/auth.dto';
-import { SignupDto } from '../dto/signup.schema';
+import { SignupDto } from '../dto/signup.dto';
+import { UserCreatedDTO } from '../dto/user.dto';
 
 export abstract class IAuthRepository {
   abstract create(data: SignupDto): Promise<UserCreatedDTO>;

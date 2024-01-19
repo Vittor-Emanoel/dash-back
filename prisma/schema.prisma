@@ -37,11 +37,10 @@ model Shepherd {
   password  String
   role      Role    @default(ADMIN)
   atavarUrl String?
+  churchId  String?
 
-  createdAt DateTime @default(now())
-  churchId  String
-  members   Member[]
   church    Church?  @relation(fields: [churchId], references: [id])
+  createdAt DateTime @default(now())
 
   @@map("shepherds")
 }
@@ -57,18 +56,16 @@ model Church {
 }
 
 model Member {
-  id          String    @id @default(uuid())
+  id          String @id @default(uuid())
   fullName    String
-  phone       String    @unique
+  phone       String @unique
   street      String
   houseNumber String
   postalCode  String
   churchId    String
   officeId    String
-  church      Church    @relation(fields: [churchId], references: [id])
-  office      Office    @relation(fields: [officeId], references: [id])
-  shepherd    Shepherd? @relation(fields: [shepherdId], references: [id])
-  shepherdId  String?
+  church      Church @relation(fields: [churchId], references: [id])
+  office      Office @relation(fields: [officeId], references: [id])
 
   @@map("members")
 }

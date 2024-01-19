@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/shared/database/prisma.service';
 
-import { UserCreatedDTO, UserProfileDTO } from 'src/modules/auth/dto/auth.dto';
-import { AdminUpdate } from '../../dto';
-import { IAdminsRepository } from '../user.repository';
+import { AdminProfileDTO } from '../../dto';
+import { CreateAdminDTO } from '../../dto/create-admin.dto';
+import { IAdminsRepository } from '../admin.repository';
 
 @Injectable()
 export class AdminsRepository implements IAdminsRepository {
   constructor(private prisma: PrismaService) {}
 
-  async findAll(): Promise<UserCreatedDTO[]> {
-    return await this.prisma.admin.findMany({});
+  async findAll(): Promise<CreateAdminDTO[]> {
+    return await this.prisma.admin.findMany();
   }
 
-  async findById(userId: string): Promise<UserCreatedDTO | null> {
+  async findById(userId: string): Promise<CreateAdminDTO | null> {
     return await this.prisma.admin.findUnique({
       where: {
         id: userId,
@@ -31,25 +31,7 @@ export class AdminsRepository implements IAdminsRepository {
     });
   }
 
-  async updateRole(
-    userId: string,
-    role: AdminUpdate['role'],
-  ): Promise<AdminUpdate | null> {
-    const user = await this.prisma.admin.update({
-      where: { id: userId },
-      data: {
-        role,
-      },
-      select: {
-        name: true,
-        email: true,
-        role: true,
-      },
-    });
-
-    return user;
-  }
-  async me(userId: string): Promise<UserProfileDTO | null> {
+  async me(userId: string): Promise<AdminProfileDTO | null> {
     const user = await this.prisma.admin.findUnique({
       where: { id: userId },
       select: {

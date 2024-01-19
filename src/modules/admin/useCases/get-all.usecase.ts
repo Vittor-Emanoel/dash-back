@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { IAdminsRepository } from '../repositories/user.repository';
+import { IAdminsRepository } from '../repositories/admin.repository';
 
 @Injectable()
 export class GetAllUseCase {

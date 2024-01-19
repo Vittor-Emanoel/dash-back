@@ -1,5 +1,4 @@
 import {
-  Body,
   Controller,
   Get,
   Patch,
@@ -13,17 +12,16 @@ import { FileInterceptor } from '@nestjs/platform-express';
 
 import { AuthGuard } from '../../shared/guards/auth.guard';
 
-import { AdminUpdate, FileDTO } from './dto';
+import { FileDTO } from './dto';
 
 import { GetAllUseCase } from './useCases/get-all.usecase';
 import { GetProfileUseCase } from './useCases/get-profile.usecase';
-import { UploadRoleUseCase } from './useCases/update-role.usecase';
+
 import { UploadAvatarUserUseCase } from './useCases/upload-avatar.usecase';
 
 @Controller('/admins')
-export class UsersController {
+export class AdminController {
   constructor(
-    private readonly updateRoleUseCase: UploadRoleUseCase,
     private readonly uploadAvatarUseCase: UploadAvatarUserUseCase,
     private readonly getProfileUseCase: GetProfileUseCase,
     private readonly getAllUseCase: GetAllUseCase,
@@ -39,10 +37,6 @@ export class UsersController {
     return this.getProfileUseCase.execute(userId);
   }
 
-  @Patch('/update')
-  async update(@Body() { role }: AdminUpdate, @ActiveUserId() userId: string) {
-    return this.updateRoleUseCase.execute(userId, role);
-  }
   @Patch('/avatar')
   @UseInterceptors(FileInterceptor('file'))
   @UseGuards(AuthGuard)
