@@ -1,27 +1,26 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/shared/database/prisma.service';
 
-import { AdminProfileDTO } from '../../dto';
-import { CreateAdminDTO } from '../../dto/create-admin.dto';
-import { IAdminsRepository } from '../admin.repository';
+import { AdminProfileDTO, UserUpdated } from '../../dto/user.dto';
+import { IUserRepository } from '../user.repository';
 
 @Injectable()
-export class AdminsRepository implements IAdminsRepository {
+export class UserRepository implements IUserRepository {
   constructor(private prisma: PrismaService) {}
 
-  async findAll(): Promise<CreateAdminDTO[]> {
-    return await this.prisma.admin.findMany();
+  async findAll(): Promise<UserUpdated[]> {
+    return await this.prisma.user.findMany();
   }
 
-  async findById(userId: string): Promise<CreateAdminDTO | null> {
-    return await this.prisma.admin.findUnique({
+  async findById(userId: string): Promise<UserUpdated | null> {
+    return await this.prisma.user.findUnique({
       where: {
         id: userId,
       },
     });
   }
   async uploadAvatar(id: string, path: string): Promise<void> {
-    await this.prisma.admin.update({
+    await this.prisma.user.update({
       data: {
         atavarUrl: path,
       },
@@ -32,7 +31,7 @@ export class AdminsRepository implements IAdminsRepository {
   }
 
   async me(userId: string): Promise<AdminProfileDTO | null> {
-    const user = await this.prisma.admin.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { id: userId },
       select: {
         id: true,

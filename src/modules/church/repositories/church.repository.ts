@@ -1,11 +1,11 @@
-import { Church } from '../dto/church.dto';
+import { ChurchCreated } from '../dto/church.dto';
 import { CreateChurchDto } from '../dto/create-church.dto';
 import { UpdateChurchDto } from '../dto/update-church.dto';
 
 export abstract class IChurchRepository {
-  abstract findUnique(id: string): Promise<Church | null>;
-  abstract findAll(): Promise<Church[] | null>;
-  abstract create(data: CreateChurchDto): Promise<Church>;
-  abstract update(id: string, data: UpdateChurchDto): Promise<Church>;
-  abstract delete(id: string): Promise<Church>;
+  abstract findUnique(id: string): Promise<ChurchCreated | null>;
+  abstract findAll(): Promise<ChurchCreated[] | null>;
+  abstract create(data: CreateChurchDto): Promise<ChurchCreated>;
+  abstract update(id: string, data: UpdateChurchDto): Promise<ChurchCreated>;
+  abstract delete(id: string): Promise<ChurchCreated>;
 }

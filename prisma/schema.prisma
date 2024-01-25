@@ -18,39 +18,25 @@ enum Role {
   SECRETARY
 }
 
-model Admin {
+model User {
   id        String   @id @default(uuid())
   name      String
   email     String   @unique
   password  String
-  role      Role     @default(ADMIN)
+  role      Role
   atavarUrl String?
   createdAt DateTime @default(now())
+  church    Church?
 
-  @@map("admins")
-}
-
-model Shepherd {
-  id        String  @id @default(uuid())
-  name      String
-  email     String  @unique
-  password  String
-  role      Role    @default(ADMIN)
-  atavarUrl String?
-  churchId  String?
-
-  church    Church?  @relation(fields: [churchId], references: [id])
-  createdAt DateTime @default(now())
-
-  @@map("shepherds")
+  @@map("users")
 }
 
 model Church {
-  id         String     @id @default(uuid())
-  name       String     @unique
-  shepherdId String
-  members    Member[]
-  shepherd   Shepherd[]
+  id       String   @id @default(uuid())
+  name     String   @unique
+  userId   String   @unique
+  members  Member[]
+  shepherd User     @relation(fields: [userId], references: [id])
 
   @@map("churchs")
 }

@@ -1,4 +1,4 @@
-export type Church = {
+export type ChurchCreated = {
   name: string;
-  shepherdId: string;
+  userId: string;
 };

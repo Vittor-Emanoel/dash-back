@@ -1,15 +1,4 @@
-import { Role } from '@prisma/client';
-
-export type SignInDto = {
-  email: string;
-  password: string;
-};
-
-export type SignUpDto = {
-  name: string;
-  email: string;
-  password: string;
-};
+import { Church, Role } from '@prisma/client';
 
 export type UserCreatedDTO = {
   id: string;
@@ -17,6 +6,7 @@ export type UserCreatedDTO = {
   email: string;
   password: string;
   atavarUrl?: string;
+  church?: Church[];
 
   createdAt: Date;
   role: 'ADMIN' | 'SECRETARY' | 'FINANCE';

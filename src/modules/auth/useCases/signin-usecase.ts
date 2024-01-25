@@ -23,8 +23,6 @@ export class SigninUseCase {
 
     const isPasswordValid = await this.comparePass(password, user.password);
 
-    console.log(isPasswordValid);
-
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid credentials');
     }

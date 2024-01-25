@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/shared/database/prisma.service';
 import { IChurchRepository } from '../church.repository';
 
-import { Church } from '../../dto/church.dto';
+import { ChurchCreated } from '../../dto/church.dto';
 import { CreateChurchDto } from '../../dto/create-church.dto';
 import { UpdateChurchDto } from '../../dto/update-church.dto';
 
@@ -10,18 +10,18 @@ import { UpdateChurchDto } from '../../dto/update-church.dto';
 export class ChurchRepository implements IChurchRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(data: CreateChurchDto): Promise<Church> {
+  async create(data: CreateChurchDto): Promise<ChurchCreated> {
     const church = await this.prisma.church.create({
       data,
       select: {
         name: true,
-        shepherdId: true,
+        userId: true,
       },
     });
 
     return church;
   }
-  async findUnique(id: string): Promise<Church | null> {
+  async findUnique(id: string): Promise<ChurchCreated | null> {
     return await this.prisma.church.findUnique({
       where: { id },
       include: {
@@ -30,13 +30,13 @@ export class ChurchRepository implements IChurchRepository {
     });
   }
 
-  async findAll(): Promise<Church[]> {
+  async findAll(): Promise<ChurchCreated[]> {
     return await this.prisma.church.findMany({
       select: {
         id: true,
         name: true,
         members: true,
-        shepherdId: true,
+        userId: true,
       },
       orderBy: [
         {
@@ -46,7 +46,7 @@ export class ChurchRepository implements IChurchRepository {
     });
   }
 
-  async update(id: string, data: UpdateChurchDto): Promise<Church> {
+  async update(id: string, data: UpdateChurchDto): Promise<ChurchCreated> {
     const church = await this.prisma.church.update({
       data,
       where: { id },
@@ -56,7 +56,7 @@ export class ChurchRepository implements IChurchRepository {
     });
     return church;
   }
-  async delete(id: string): Promise<Church> {
+  async delete(id: string): Promise<ChurchCreated> {
     return await this.prisma.church.delete({
       where: { id },
       include: {

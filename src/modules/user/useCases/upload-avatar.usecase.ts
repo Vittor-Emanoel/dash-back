@@ -2,14 +2,15 @@ import { Injectable } from '@nestjs/common';
 
 import { extname } from 'path';
 import { IStorage } from 'src/shared/providers/storage/storage';
-import { AvatarDTO } from '../dto';
-import { IAdminsRepository } from '../repositories/admin.repository';
+
+import { AvatarDTO } from '../dto/user.dto';
+import { IUserRepository } from '../repositories/user.repository';
 
 @Injectable()
 export class UploadAvatarUserUseCase {
   constructor(
     private storage: IStorage,
-    private usersRepository: IAdminsRepository,
+    private usersRepository: IUserRepository,
   ) {}
 
   async execute(data: AvatarDTO) {

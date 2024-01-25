@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 
-import { IAdminsRepository } from '../repositories/admin.repository';
+import { IUserRepository } from '../repositories/user.repository';
 
 @Injectable()
 export class GetProfileUseCase {
-  constructor(private readonly repo: IAdminsRepository) {}
+  constructor(private readonly repo: IUserRepository) {}
 
   async execute(adminId: string) {
     const admin = await this.repo.me(adminId);

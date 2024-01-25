@@ -1,15 +1,8 @@
 import { Role } from '@prisma/client';
 
-export type CreateAdmin = {
+export type UserUpdated = {
   name: string;
   email: string;
-  password: string;
-};
-
-export type AdminUpdate = {
-  name: string;
-  email: string;
-  // password: string;
   role: 'ADMIN' | 'SECRETARY' | 'FINANCE';
 };
 

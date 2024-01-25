@@ -2,37 +2,23 @@
 CREATE TYPE "Role" AS ENUM ('ADMIN', 'FINANCE', 'SECRETARY');
 
 -- CreateTable
-CREATE TABLE "admins" (
+CREATE TABLE "users" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "role" "Role" NOT NULL DEFAULT 'ADMIN',
+    "role" "Role" NOT NULL,
     "atavarUrl" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "admins_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "shepherds" (
-    "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "email" TEXT NOT NULL,
-    "password" TEXT NOT NULL,
-    "role" "Role" NOT NULL DEFAULT 'ADMIN',
-    "atavarUrl" TEXT,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "churchId" TEXT NOT NULL,
-
-    CONSTRAINT "shepherds_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "churchs" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "shepherdId" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
 
     CONSTRAINT "churchs_pkey" PRIMARY KEY ("id")
 );
@@ -47,7 +33,6 @@ CREATE TABLE "members" (
     "postalCode" TEXT NOT NULL,
     "churchId" TEXT NOT NULL,
     "officeId" TEXT NOT NULL,
-    "shepherdId" TEXT,
 
     CONSTRAINT "members_pkey" PRIMARY KEY ("id")
 );
@@ -61,13 +46,13 @@ CREATE TABLE "offices" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "admins_email_key" ON "admins"("email");
-
--- CreateIndex
-CREATE UNIQUE INDEX "shepherds_email_key" ON "shepherds"("email");
+CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "churchs_name_key" ON "churchs"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "churchs_userId_key" ON "churchs"("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "members_phone_key" ON "members"("phone");
@@ -76,13 +61,10 @@ CREATE UNIQUE INDEX "members_phone_key" ON "members"("phone");
 CREATE UNIQUE INDEX "offices_name_key" ON "offices"("name");
 
 -- AddForeignKey
-ALTER TABLE "shepherds" ADD CONSTRAINT "shepherds_churchId_fkey" FOREIGN KEY ("churchId") REFERENCES "churchs"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "churchs" ADD CONSTRAINT "churchs_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "members" ADD CONSTRAINT "members_churchId_fkey" FOREIGN KEY ("churchId") REFERENCES "churchs"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "members" ADD CONSTRAINT "members_officeId_fkey" FOREIGN KEY ("officeId") REFERENCES "offices"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "members" ADD CONSTRAINT "members_shepherdId_fkey" FOREIGN KEY ("shepherdId") REFERENCES "shepherds"("id") ON DELETE SET NULL ON UPDATE CASCADE;

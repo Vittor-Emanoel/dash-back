@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
-
-import { IAdminsRepository } from '../repositories/admin.repository';
+import { IUserRepository } from '../repositories/user.repository';
 
 @Injectable()
 export class GetAllUseCase {
-  constructor(private readonly repo: IAdminsRepository) {}
+  constructor(private readonly repo: IUserRepository) {}
 
   async execute() {
     const admins = await this.repo.findAll();
