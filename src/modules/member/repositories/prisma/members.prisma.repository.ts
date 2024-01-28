@@ -10,9 +10,21 @@ import { IMembersRepository } from '../members.repository';
 export class MembersRepository implements IMembersRepository {
   constructor(private readonly prisma: PrismaService) {}
 
+  async findById(id: string): Promise<Member | null> {
+    const member = await this.prisma.member.findUnique({
+      where: { id },
+    });
+
+    return member;
+  }
+
   async find(id: string): Promise<Member[] | null> {
     const members = await this.prisma.member.findMany({
-      where: { churchId: id },
+      where: {
+        church: {
+          userId: id,
+        },
+      },
       select: {
         id: true,
         fullName: true,

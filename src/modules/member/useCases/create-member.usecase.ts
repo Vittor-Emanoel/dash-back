@@ -7,12 +7,15 @@ export class CreateMemberUseCase {
   constructor(private readonly membersRepository: IMembersRepository) {}
 
   async execute(data: CreateMemberDto) {
-    const member = await this.membersRepository.findUnique(data.phone);
+    try {
+       const member = await this.membersRepository.findUnique(data.phone);
+      
+       if(!member) {
+        await this.membersRepository.create(data);
+       }
 
-    if (member) {
+  } catch (error) {
       throw new NotFoundException('Member already exists');
     }
-
-    return await this.membersRepository.create(data);
   }
 }

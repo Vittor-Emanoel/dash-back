@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import { hash } from 'bcryptjs';
 const prisma = new PrismaClient();
 export async function main() {
-  await prisma.user.upsert({
+  const admin = await prisma.user.upsert({
     where: { email: 'admin@adm.com' },
     update: {},
     create: {
@@ -30,6 +30,35 @@ export async function main() {
       email: 'secretaria@admin.com',
       password: await hash('secretaria123', 12),
       role: 'SECRETARY',
+    },
+  });
+  await prisma.church.upsert({
+    where: { name: 'Sede' },
+    update: {},
+    create: {
+      name: 'Sede',
+      userId: admin.id,
+    },
+  });
+  await prisma.office.upsert({
+    where: { name: 'Cooperador(a)' },
+    update: {},
+    create: {
+      name: 'Cooperador(a)',
+    },
+  });
+  await prisma.office.upsert({
+    where: { name: 'Diacono' },
+    update: {},
+    create: {
+      name: 'Diacono',
+    },
+  });
+  await prisma.office.upsert({
+    where: { name: 'Diaconisa' },
+    update: {},
+    create: {
+      name: 'Diaconisa',
     },
   });
 }

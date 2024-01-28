@@ -7,6 +7,7 @@ import { MembersRepository } from './repositories/prisma/members.prisma.reposito
 import { CreateMemberUseCase } from './useCases/create-member.usecase';
 import { DeleteMemberUseCase } from './useCases/delete-member.usecase';
 import { GetAllMembers } from './useCases/get-all-members.usecase';
+import { GetMemberById } from './useCases/get-by-Id-member.usecase';
 import { GetMemberUseCase } from './useCases/get-member.usecase';
 import { UpdateMemberUseCase } from './useCases/update-member.usecase';
 
@@ -19,6 +20,7 @@ import { UpdateMemberUseCase } from './useCases/update-member.usecase';
     DeleteMemberUseCase,
     GetMemberUseCase,
     GetAllMembers,
+    GetMemberById,
     {
       provide: IMembersRepository,
       useClass: MembersRepository,
