@@ -13,6 +13,27 @@ export class MembersRepository implements IMembersRepository {
   async findById(id: string): Promise<Member | null> {
     const member = await this.prisma.member.findUnique({
       where: { id },
+
+      select: {
+        id: true,
+        fullName: true,
+        phone: true,
+        street: true,
+        houseNumber: true,
+        postalCode: true,
+        church: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        office: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
     });
 
     return member;

@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   Patch,
   Post,
@@ -49,6 +50,7 @@ export class MembersController {
   }
 
   @Patch(':id')
+  @HttpCode(201)
   update(@Param('id') id: string, @Body() updateMemberDto: UpdateMemberDto) {
     return this.updateMemberUseCase.execute(id, updateMemberDto);
   }
