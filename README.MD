@@ -68,6 +68,4 @@ As Técnologias definas para o back-end foram:
 - Supabase
 - Nodemailer
 
-## Informações finais
 
-A data prevista para a entregar a primeira versão do projeto é: 31/12/2023.
