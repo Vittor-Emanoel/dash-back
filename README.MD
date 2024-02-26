@@ -60,7 +60,7 @@ Para garantiar a qualidade do software nessa primeira versão foi definido algun
 
 ## 💻 Tecnologias utilizadas
 
-As Técnologias definas para o back-end foram:
+As Tecnologias definas para o back-end foram:
 
 - NestJS
 - PostgreSQL
