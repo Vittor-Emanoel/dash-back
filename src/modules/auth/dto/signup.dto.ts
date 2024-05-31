@@ -1,4 +1,3 @@
-import { Role } from '@prisma/client';
 import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 
 export class SignupDto {
@@ -15,7 +14,4 @@ export class SignupDto {
   @IsNotEmpty()
   @MinLength(8)
   password: string;
-
-  @IsString()
-  role: Role;
 }

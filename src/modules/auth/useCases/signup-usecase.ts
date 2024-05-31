@@ -13,7 +13,7 @@ export class SignupUseCase {
   ) {}
 
   async execute(data: SignupDto) {
-    const { name, email, password, role } = data;
+    const { name, email, password } = data;
 
     const emailTaken = await this.authRepository.findByEmail(email);
 
@@ -27,14 +27,12 @@ export class SignupUseCase {
       name,
       email,
       password: hashedPassword,
-      role,
     });
 
     const payload = {
       sub: user.id,
       name: user.name,
       email: user.email,
-      role: user.role,
     };
 
     const accessToken = await this.generateAccessToken(payload);

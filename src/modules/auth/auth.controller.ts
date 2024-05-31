@@ -7,7 +7,7 @@ import { SigninUseCase } from './useCases/signin-usecase';
 import { SignupUseCase } from './useCases/signup-usecase';
 
 @IsPublic()
-@Controller('auth')
+@Controller('/')
 export class AuthController {
   constructor(
     private readonly signinUseCase: SigninUseCase,

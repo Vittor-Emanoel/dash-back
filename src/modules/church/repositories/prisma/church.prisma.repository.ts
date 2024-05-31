@@ -15,7 +15,7 @@ export class ChurchRepository implements IChurchRepository {
       data,
       select: {
         name: true,
-        userId: true,
+        own_id: true,
       },
     });
 
@@ -36,7 +36,7 @@ export class ChurchRepository implements IChurchRepository {
         id: true,
         name: true,
         members: true,
-        userId: true,
+        own_id: true,
       },
       orderBy: [
         {

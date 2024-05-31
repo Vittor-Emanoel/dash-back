@@ -5,6 +5,12 @@ import { compare } from 'bcryptjs';
 import { SignInDto } from '../dto/signin.dto';
 import { IAuthRepository } from '../repositories/auth.repository';
 
+interface IPayload {
+  sub: string;
+  name: string;
+  email: string;
+}
+
 @Injectable()
 export class SigninUseCase {
   constructor(
@@ -27,11 +33,10 @@ export class SigninUseCase {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    const payload = {
+    const payload: IPayload = {
       sub: user.id,
       name: user.name,
       email: user.email,
-      role: user.role,
     };
 
     const accessToken = await this.generateAccessToken(payload);
@@ -45,7 +50,7 @@ export class SigninUseCase {
     return compare(password, hashedPassword);
   }
 
-  private generateAccessToken(payload) {
+  private generateAccessToken(payload: IPayload) {
     return this.jwtService.signAsync(payload);
   }
 }

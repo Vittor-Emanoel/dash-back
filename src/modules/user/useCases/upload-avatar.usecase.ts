@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 
-import { extname } from 'path';
 import { IStorage } from 'src/shared/providers/storage/storage';
 
 import { AvatarDTO } from '../dto/user.dto';
@@ -14,17 +13,13 @@ export class UploadAvatarUserUseCase {
   ) {}
 
   async execute(data: AvatarDTO) {
-    const publicUrl = process.env.SUPABASE_PUBLIC_URL ?? '';
-    const extFile = extname(data.file.originalname);
-    const transformName = `${data.idUser}${extFile}`;
-
-    data.file.originalname = transformName;
-    const file = await this.storage.upload(data.file, 'images');
-
-    const pathAvatarUser = `${publicUrl}${data.file.originalname}`;
-
-    await this.usersRepository.uploadAvatar(data.idUser, pathAvatarUser);
-
-    return file;
+    // const publicUrl = process.env.SUPABASE_PUBLIC_URL ?? '';
+    // const extFile = extname(data.file.originalname);
+    // const transformName = `${data.idUser}${extFile}`;
+    // data.file.originalname = transformName;
+    // const file = await this.storage.upload(data.file, 'images');
+    // const pathAvatarUser = `${publicUrl}${data.file.originalname}`;
+    // await this.usersRepository.uploadAvatar(data.idUser, pathAvatarUser);
+    // return file;
   }
 }

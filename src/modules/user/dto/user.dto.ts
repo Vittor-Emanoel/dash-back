@@ -1,9 +1,10 @@
-import { Role } from '@prisma/client';
-
 export type UserUpdated = {
+  id: string;
   name: string;
   email: string;
-  role: 'ADMIN' | 'SECRETARY' | 'FINANCE';
+  password: string;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type AdminProfileDTO = {
@@ -11,7 +12,6 @@ export type AdminProfileDTO = {
   name: string;
   email: string;
   atavarUrl?: string;
-  role: Role;
 };
 
 export type UploadAvatar = {

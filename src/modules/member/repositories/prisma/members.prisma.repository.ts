@@ -43,7 +43,7 @@ export class MembersRepository implements IMembersRepository {
     const members = await this.prisma.member.findMany({
       where: {
         church: {
-          userId: id,
+          own_id: id,
         },
       },
       select: {
@@ -95,12 +95,12 @@ export class MembersRepository implements IMembersRepository {
           select: {
             id: true,
             name: true,
-            shepherd: {
-              select: {
-                id: true,
-                name: true,
-              },
-            },
+            // shepherd: {
+            //   select: {
+            //     id: true,
+            //     name: true,
+            //   },
+            // },
           },
         },
         office: {
@@ -109,6 +109,7 @@ export class MembersRepository implements IMembersRepository {
             name: true,
           },
         },
+        memberStatus: true,
       },
     });
 

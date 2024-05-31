@@ -19,16 +19,16 @@ export class UserRepository implements IUserRepository {
       },
     });
   }
-  async uploadAvatar(id: string, path: string): Promise<void> {
-    await this.prisma.user.update({
-      data: {
-        atavarUrl: path,
-      },
-      where: {
-        id,
-      },
-    });
-  }
+  // async uploadAvatar(id: string, path: string): Promise<void> {
+  //   await this.prisma.user.update({
+  //     data: {
+  //       atavarUrl: path,
+  //     },
+  //     where: {
+  //       id,
+  //     },
+  //   });
+  // }
 
   async me(userId: string): Promise<AdminProfileDTO | null> {
     const user = await this.prisma.user.findUnique({
@@ -37,9 +37,6 @@ export class UserRepository implements IUserRepository {
         id: true,
         name: true,
         email: true,
-        role: true,
-        atavarUrl: true,
-        createdAt: true,
       },
     });
     return user;

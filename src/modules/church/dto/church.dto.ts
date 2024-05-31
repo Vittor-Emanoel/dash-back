@@ -1,4 +1,4 @@
 export type ChurchCreated = {
   name: string;
-  userId: string;
+  own_id: string;
 };

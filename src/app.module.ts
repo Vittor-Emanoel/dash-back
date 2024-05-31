@@ -8,6 +8,7 @@ import { ChurchsModule } from './modules/church/churchs.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { MembersModule } from './modules/member/members.module';
 import { OfficesModule } from './modules/office/offices.module';
+import { OrganizationModule } from './modules/organization/organization.module';
 import { UserModule } from './modules/user/user.module';
 import { DatabaseModule } from './shared/database/prisma.module';
 import { AuthGuard } from './shared/guards/auth.guard';
@@ -21,6 +22,7 @@ import { AuthGuard } from './shared/guards/auth.guard';
     ChurchsModule,
     OfficesModule,
     MembersModule,
+    OrganizationModule,
   ],
   controllers: [],
   providers: [
