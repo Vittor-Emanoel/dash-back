@@ -1,14 +1,17 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { AuthModule } from './modules/auth/auth.module';
+
 import { DatabaseModule } from './shared/database/prisma.module';
+
+import { OrganizationsModule } from './modules/organizations/organizations.module';
 
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     DatabaseModule,
-    AuthModule,
+
+    OrganizationsModule,
   ],
   controllers: [],
   providers: [
@@ -16,6 +19,6 @@ import { DatabaseModule } from './shared/database/prisma.module';
     //   provide: APP_GUARD,
     //   useClass: AuthGuard,
     // },
-  ],
+],
 })
 export class AppModule {}

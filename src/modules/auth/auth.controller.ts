@@ -11,8 +11,8 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import {
-  CreateOrganizationParams,
-  createOrganizationSchema,
+  CreateUserDto,
+  createUser
 } from './dto/signup.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 
@@ -21,9 +21,9 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('signup')
-  @UsePipes(new ZodPipe(createOrganizationSchema))
-  signup(@Body() signupOrganization: CreateOrganizationParams) {
-    return this.authService.create(signupOrganization);
+  @UsePipes(new ZodPipe(createUser))
+  signup(@Body() createUser: CreateUserDto) {
+    return this.authService.create(createUser);
   }
 
   @Get()

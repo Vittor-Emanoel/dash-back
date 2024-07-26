@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateOrganizationParams } from './dto/signup.dto';
+import { CreateUserDto } from './dto/signup.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { AuthPrismaRepository } from './repositories/prisma/auth.prisma.repository';
 
@@ -7,7 +7,7 @@ import { AuthPrismaRepository } from './repositories/prisma/auth.prisma.reposito
 export class AuthService {
   constructor(private readonly authRepository: AuthPrismaRepository) {}
 
-  async create(params: CreateOrganizationParams) {
+  async create(params: CreateUserDto) {
     return this.authRepository.create(params);
   }
 

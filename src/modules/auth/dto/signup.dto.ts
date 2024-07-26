@@ -1,16 +1,12 @@
 import { z } from 'zod';
 
-export const createOrganizationSchema = z.object({
+export const createUser = z.object({
   name: z.string({
     required_error: 'O nome e obrigatorio!',
     invalid_type_error: 'O nome precisa ser uma string',
   }),
-  slug: z
-    .string({
-      required_error: 'O slug e obrigatorio!',
-      invalid_type_error: 'O slug precisa ser uma string',
-    })
-    .min(4, { message: 'O slug precisa ser de no minimo 4 caracteres' }),
+  email: z.string().email(),
+  password: z.string().min(8, {message: 'A senha deve ter no minimo 8 caratectes'})
 });
 
-export type CreateOrganizationParams = z.infer<typeof createOrganizationSchema>;
+export type CreateUserDto = z.infer<typeof createUser>;
