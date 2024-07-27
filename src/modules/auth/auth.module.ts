@@ -1,7 +1,7 @@
+import { env } from '@/shared/config/env';
 import { PrismaService } from '@/shared/database/prisma.service';
 import { Module } from '@nestjs/common';
-import { JwtModule, JwtService } from '@nestjs/jwt';
-import { env } from 'process';
+import { JwtModule } from '@nestjs/jwt';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { AuthPrismaRepository } from './repositories/prisma/auth.prisma.repository';
@@ -15,6 +15,6 @@ import { AuthPrismaRepository } from './repositories/prisma/auth.prisma.reposito
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, PrismaService, AuthPrismaRepository, JwtService],
+  providers: [AuthService, PrismaService, AuthPrismaRepository],
 })
 export class AuthModule {}

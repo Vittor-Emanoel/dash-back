@@ -9,8 +9,8 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LoginUserDto } from './dto/signin.dto';
-import { CreateUserDto, createUser } from './dto/signup.dto';
+import { loginUser, LoginUserDto } from './dto/signin.dto';
+import { createUser, CreateUserDto } from './dto/signup.dto';
 
 //rotas publicas => sem autenticacao
 @IsPublic()
@@ -26,6 +26,7 @@ export class AuthController {
 
   @Post('signin')
   @HttpCode(HttpStatus.OK)
+  @UsePipes(new ZodPipe(loginUser))
   signin(@Body() loginUser: LoginUserDto) {
     return this.authService.signin(loginUser);
   }
