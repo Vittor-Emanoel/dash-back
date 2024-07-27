@@ -1,9 +1,8 @@
 import { z } from 'zod';
 
-export const createOrganization = z.object({
+export const organizationSchema = z.object({
   name: z.string(),
   slug: z.string().min(4),
-  owner_id: z.string().uuid().optional(),
 });
 
-export type CreateOrganizationDto = z.infer<typeof createOrganization>;
+export type OrganizationDto = z.infer<typeof organizationSchema>;
