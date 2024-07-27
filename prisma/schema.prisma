@@ -30,6 +30,7 @@ model User {
   role_id      String?
   user_role    UserRole[]
   organization Organization[]
+  Church       Church[]
 
   @@map("users")
 }
@@ -70,15 +71,29 @@ model UserRole {
 }
 
 model Church {
-  id             String   @id @default(uuid())
-  name           String   @unique
-  userId         String   @unique
-  members        Member[]
-  organizationId String?
+  id              String  @id @default(uuid())
+  name            String  @unique
+  organization_Id String?
+  owner_id        String
+  description     String?
 
-  Organization Organization? @relation(fields: [organizationId], references: [id])
+  members      Member[]
+  address      ChurchAddress[]
+  owner        User?           @relation(fields: [owner_id], references: [id])
+  organization Organization?   @relation(fields: [organization_Id], references: [id])
 
   @@map("churchs")
+}
+
+model ChurchAddress {
+  id          String  @id @default(uuid())
+  street      String
+  houseNumber String
+  postalCode  String
+  church_id   String?
+  church      Church? @relation(fields: [church_id], references: [id], onDelete: Cascade)
+
+  @@map("church_address")
 }
 
 model Member {
