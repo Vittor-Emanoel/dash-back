@@ -35,9 +35,7 @@ export class OrganizationsService {
   }
 
   async get(owner_id: string) {
-    const organization = await this.organizationRepository.findByOwner(
-      owner_id,
-    );
+    const organization = await this.organizationRepository.get(owner_id);
 
     if (!organization) {
       throw new NotFoundException(

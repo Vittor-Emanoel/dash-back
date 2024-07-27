@@ -2,6 +2,7 @@ import { PrismaService } from '@/shared/database/prisma.service';
 import { Organization } from '@/shared/entities/Organization';
 import { Injectable } from '@nestjs/common';
 import { OrganizationDto } from '../../dto/organization.dto';
+import { IOrganization } from '../../types/organization';
 import { IOrganizationRepository } from '../organization.repository';
 
 @Injectable()
@@ -16,6 +17,26 @@ export class OrganizationRepository implements IOrganizationRepository {
         name,
         slug,
         owner_id,
+      },
+    });
+
+    return organization;
+  }
+
+  async get(owner_id: string): Promise<IOrganization[]> {
+    const organization = await this.prisma.organization.findMany({
+      where: { owner_id },
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
       },
     });
 

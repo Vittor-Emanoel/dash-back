@@ -42,7 +42,7 @@ model Organization {
 
   churches Church[]
 
-  User User @relation(fields: [owner_id], references: [id])
+  user User @relation(fields: [owner_id], references: [id])
 
   @@map("organizations")
 }
