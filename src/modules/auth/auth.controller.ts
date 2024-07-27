@@ -1,21 +1,19 @@
+import { IsPublic } from '@/shared/decorators/is-public.decorator';
 import { ZodPipe } from '@/shared/pipes/ZodPipe';
 import {
   Body,
   Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
+  HttpCode,
+  HttpStatus,
   Post,
   UsePipes,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import {
-  CreateUserDto,
-  createUser
-} from './dto/signup.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
+import { LoginUserDto } from './dto/signin.dto';
+import { CreateUserDto, createUser } from './dto/signup.dto';
 
+//rotas publicas => sem autenticacao
+@IsPublic()
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -23,26 +21,12 @@ export class AuthController {
   @Post('signup')
   @UsePipes(new ZodPipe(createUser))
   signup(@Body() createUser: CreateUserDto) {
-    return this.authService.create(createUser);
+    return this.authService.signup(createUser);
   }
 
-  @Get()
-  findAll() {
-    return this.authService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.authService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAuthDto: UpdateAuthDto) {
-    return this.authService.update(+id, updateAuthDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.authService.remove(+id);
+  @Post('signin')
+  @HttpCode(HttpStatus.OK)
+  signin(@Body() loginUser: LoginUserDto) {
+    return this.authService.signin(loginUser);
   }
 }

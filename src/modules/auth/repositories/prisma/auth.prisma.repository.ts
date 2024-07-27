@@ -12,10 +12,22 @@ export class AuthPrismaRepository implements IAuthRepository {
   async create(data: CreateUserDto): Promise<User> {
     const { name, email, password } = data;
 
-    // const organization = await this.prisma.user.create({
-    //   data: 
-    // });
+    const user = await this.prisma.user.create({
+      data: {
+        email,
+        name,
+        password,
+      },
+    });
 
-    // return organization;
+    return user;
+  }
+
+  async findByEmail(email: string): Promise<User | null> {
+    const user = await this.prisma.user.findUnique({
+      where: { email },
+    });
+
+    return user;
   }
 }

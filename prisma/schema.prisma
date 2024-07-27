@@ -18,13 +18,31 @@ datasource db {
 //   SECRETARY
 // }
 
+model User {
+  id       String @id @default(uuid())
+  name     String
+  email    String @unique
+  password String
+
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt()
+  role         Role?          @relation(fields: [role_id], references: [id])
+  role_id      String?
+  user_role    UserRole[]
+  organization Organization[]
+
+  @@map("users")
+}
+
 model Organization {
   id   String @id @default(uuid())
   name String
   slug String @unique
 
+  owner_id User @relation(fields: [userId], references: [id])
+
   churches Church[]
-  users    User[]
+  userId   String
 
   @@map("organizations")
 }
@@ -49,23 +67,6 @@ model UserRole {
 
   @@id([user_id, role_id])
   @@map("users_roles")
-}
-
-model User {
-  id              String     @id @default(uuid())
-  name            String
-  email           String     @unique
-  password        String
-  atavarUrl       String?
-  createdAt       DateTime   @default(now())
-  organization_id String
-  user_roles      UserRole[]
-
-  role_id      String
-  organization Organization? @relation(fields: [organization_id], references: [id])
-  role         Role          @relation(fields: [role_id], references: [id])
-
-  @@map("users")
 }
 
 model Church {

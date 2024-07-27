@@ -1,29 +1,79 @@
-import { Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { compare, hash } from 'bcryptjs';
+import { LoginUserDto } from './dto/signin.dto';
 import { CreateUserDto } from './dto/signup.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
 import { AuthPrismaRepository } from './repositories/prisma/auth.prisma.repository';
+
+interface IPayload {
+  sub: string;
+  name: string;
+  email: string;
+}
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly authRepository: AuthPrismaRepository) {}
+  constructor(
+    private readonly authRepository: AuthPrismaRepository,
+    private readonly jwtService: JwtService,
+  ) {}
 
-  async create(params: CreateUserDto) {
-    return this.authRepository.create(params);
+  async signup({ name, email, password }: CreateUserDto) {
+    const userExists = await this.authRepository.findByEmail(email);
+
+    if (userExists) {
+      throw new ConflictException('User already exists');
+    }
+
+    const passwordHashed = await hash(password, 12);
+
+    const user = await this.authRepository.create({
+      name,
+      email,
+      password: passwordHashed,
+    });
+
+    return user;
   }
 
-  findAll() {
-    return `This action returns all auth`;
+  async signin({ email, password }: LoginUserDto) {
+    try {
+      const user = await this.authRepository.findByEmail(email);
+
+      if (!user) {
+        throw new NotFoundException('User is not exists');
+      }
+
+      const isPasswordValid = await this.comparePass(password, user.password);
+
+      if (!isPasswordValid) {
+        throw new UnauthorizedException('Invalid credentials');
+      }
+
+      const payload: IPayload = {
+        sub: user.id,
+        name: user.name,
+        email: user.email,
+      };
+
+      const accessToken = await this.generateAccessToken(payload);
+
+      return { accessToken };
+    } catch (error) {}
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
+  async comparePass(
+    password: string,
+    hashedPassword: string,
+  ): Promise<boolean> {
+    return compare(password, hashedPassword);
   }
-
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
+  private generateAccessToken(payload: IPayload) {
+    return this.jwtService.signAsync(payload);
   }
 }
