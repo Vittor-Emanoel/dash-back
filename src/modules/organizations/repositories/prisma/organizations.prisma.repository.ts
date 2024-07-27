@@ -1,12 +1,12 @@
 import { PrismaService } from '@/shared/database/prisma.service';
 import { Organization } from '@/shared/entities/Organization';
 import { Injectable } from '@nestjs/common';
-import { OrganizationDto } from '../../dto/organization.dto';
-import { IOrganization } from '../../types/organization';
-import { IOrganizationRepository } from '../organization.repository';
+import { OrganizationDto } from '../../dto/organizations.dto';
+import { IOrganization } from '../../types/IOrganization';
+import { IOrganizationsRepository } from '../organizations.repository';
 
 @Injectable()
-export class OrganizationRepository implements IOrganizationRepository {
+export class OrganizationsRepository implements IOrganizationsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(data: OrganizationDto, owner_id: string): Promise<Organization> {

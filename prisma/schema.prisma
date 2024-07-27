@@ -48,12 +48,12 @@ model Organization {
 }
 
 model Role {
-  id        String     @id @default(uuid())
-  name      String
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  UserRole  UserRole[]
-  User      User[]
+  id         String     @id @default(uuid())
+  name       String
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  users_role UserRole[]
+  users      User[]
 
   @@map("roles")
 }

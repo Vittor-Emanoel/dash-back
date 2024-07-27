@@ -11,7 +11,7 @@ import {
   Put,
   UsePipes,
 } from '@nestjs/common';
-import { OrganizationDto, organizationSchema } from './dto/organization.dto';
+import { OrganizationDto, organizationSchema } from './dto/organizations.dto';
 import { OrganizationsService } from './organizations.service';
 
 @Controller('organizations')

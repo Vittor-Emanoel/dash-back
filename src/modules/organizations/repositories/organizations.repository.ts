@@ -1,8 +1,8 @@
 import { Organization } from '@/shared/entities/Organization';
-import { OrganizationDto } from '../dto/organization.dto';
-import { IOrganization } from '../types/organization';
+import { OrganizationDto } from '../dto/organizations.dto';
+import { IOrganization } from '../types/IOrganization';
 
-export abstract class IOrganizationRepository {
+export abstract class IOrganizationsRepository {
   abstract create(
     data: OrganizationDto,
     owner_id: string,

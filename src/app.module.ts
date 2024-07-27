@@ -4,9 +4,10 @@ import { AuthModule } from './modules/auth/auth.module';
 import { OrganizationsModule } from './modules/organizations/organizations.module';
 import { DatabaseModule } from './shared/database/prisma.module';
 import { AuthGuard } from './shared/guards/auth.guard';
+import { RolesModule } from './modules/roles/roles.module';
 
 @Module({
-  imports: [DatabaseModule, AuthModule, OrganizationsModule],
+  imports: [DatabaseModule, AuthModule, OrganizationsModule, RolesModule],
   controllers: [],
   providers: [
     {

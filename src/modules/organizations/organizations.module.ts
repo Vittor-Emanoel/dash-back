@@ -2,8 +2,8 @@ import { PrismaService } from '@/shared/database/prisma.service';
 import { Module } from '@nestjs/common';
 import { OrganizationsController } from './organizations.controller';
 import { OrganizationsService } from './organizations.service';
-import { IOrganizationRepository } from './repositories/organization.repository';
-import { OrganizationRepository } from './repositories/prisma/organization.prisma.repository';
+import { IOrganizationsRepository } from './repositories/organizations.repository';
+import { OrganizationsRepository } from './repositories/prisma/organizations.prisma.repository';
 
 @Module({
   controllers: [OrganizationsController],
@@ -11,8 +11,8 @@ import { OrganizationRepository } from './repositories/prisma/organization.prism
     OrganizationsService,
     PrismaService,
     {
-      provide: IOrganizationRepository,
-      useClass: OrganizationRepository,
+      provide: IOrganizationsRepository,
+      useClass: OrganizationsRepository,
     },
   ],
 })

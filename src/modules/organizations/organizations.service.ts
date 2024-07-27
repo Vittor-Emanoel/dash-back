@@ -3,13 +3,13 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { OrganizationDto } from './dto/organization.dto';
-import { IOrganizationRepository } from './repositories/organization.repository';
+import { OrganizationDto } from './dto/organizations.dto';
+import { IOrganizationsRepository } from './repositories/organizations.repository';
 
 @Injectable()
 export class OrganizationsService {
   constructor(
-    private readonly organizationRepository: IOrganizationRepository,
+    private readonly organizationRepository: IOrganizationsRepository,
   ) {}
 
   //TODO: A REGRA DE NEGOCIO E QUE CADA USUARIO DO PODE SER UMA ORGANIZACAO ATRIBUIDA A ELE
