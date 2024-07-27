@@ -3,6 +3,7 @@ import { ZodPipe } from '@/shared/pipes/ZodPipe';
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
@@ -20,11 +21,17 @@ export class OrganizationsController {
 
   @Post()
   @UsePipes(new ZodPipe(createOrganization))
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.CREATED)
   create(
     @Body() createOrganizationDto: CreateOrganizationDto,
     @ActiveUserId() owner_id: string,
   ) {
     return this.organizationsService.create(createOrganizationDto, owner_id);
+  }
+
+  @Get()
+  @HttpCode(HttpStatus.OK)
+  organization(@ActiveUserId() owner_id: string) {
+    return this.organizationsService.get(owner_id);
   }
 }

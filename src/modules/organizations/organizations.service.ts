@@ -1,4 +1,8 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateOrganizationDto } from './dto/organization.dto';
 import { IOrganizationRepository } from './repositories/organization.repository';
 
@@ -28,5 +32,19 @@ export class OrganizationsService {
     }
 
     await this.organizationRepository.create({ name, slug }, owner_id);
+  }
+
+  async get(owner_id: string) {
+    const organization = await this.organizationRepository.findByOwner(
+      owner_id,
+    );
+
+    if (!organization) {
+      throw new NotFoundException(
+        'Is not already an organization assigned to you',
+      );
+    }
+
+    return organization;
   }
 }
