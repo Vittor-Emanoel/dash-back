@@ -24,65 +24,53 @@ export class AuthService {
   ) {}
 
   async signup({ name, email, password }: CreateUserDto) {
-    try {
-      const userExists = await this.authRepository.findByEmail(email);
+    const userExists = await this.authRepository.findByEmail(email);
 
-      if (userExists) {
-        throw new ConflictException('User already exists');
-      }
-
-      const passwordHashed = await hash(password, 12);
-
-      const user = await this.authRepository.create({
-        name,
-        email,
-        password: passwordHashed,
-      });
-
-      const payload: IPayload = {
-        sub: user.id,
-        name: user.name,
-        email: user.email,
-      };
-
-      const accessToken = await this.generateAccessToken(payload);
-
-      return { accessToken };
-    } catch (error) {
-      //TODO: Usar um servico de log
-      console.error(error);
-      throw new Error(error);
+    if (userExists) {
+      throw new ConflictException('User already exists');
     }
+
+    const passwordHashed = await hash(password, 12);
+
+    const user = await this.authRepository.create({
+      name,
+      email,
+      password: passwordHashed,
+    });
+
+    const payload: IPayload = {
+      sub: user.id,
+      name: user.name,
+      email: user.email,
+    };
+
+    const accessToken = await this.generateAccessToken(payload);
+
+    return { accessToken };
   }
 
   async signin({ email, password }: LoginUserDto) {
-    try {
-      const user = await this.authRepository.findByEmail(email);
+    const user = await this.authRepository.findByEmail(email);
 
-      if (!user) {
-        throw new NotFoundException('User is not exists');
-      }
-
-      const isPasswordValid = await this.comparePass(password, user.password);
-
-      if (!isPasswordValid) {
-        throw new UnauthorizedException('Invalid credentials');
-      }
-
-      const payload: IPayload = {
-        sub: user.id,
-        name: user.name,
-        email: user.email,
-      };
-
-      const accessToken = await this.generateAccessToken(payload);
-
-      return { accessToken };
-    } catch (error) {
-      //TODO: Usar um servico de log
-      console.error(error);
-      throw new Error(error);
+    if (!user) {
+      throw new NotFoundException('User is not exists');
     }
+
+    const isPasswordValid = await this.comparePass(password, user.password);
+
+    if (!isPasswordValid) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+
+    const payload: IPayload = {
+      sub: user.id,
+      name: user.name,
+      email: user.email,
+    };
+
+    const accessToken = await this.generateAccessToken(payload);
+
+    return { accessToken };
   }
 
   async comparePass(

@@ -24,6 +24,7 @@
       "@/*": ["./src/*"],
       "@/modules": ["./src/modules/*"],
       "@/shared": ["./src/shared/*"],
+      "@/entities": ["./src/shared/entities*"],
     }
 
   }

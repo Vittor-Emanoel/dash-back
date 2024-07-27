@@ -1,26 +1,32 @@
-import { Injectable } from '@nestjs/common';
-import { CreateOrganizationDto } from './dto/create-organization.dto';
-import { UpdateOrganizationDto } from './dto/update-organization.dto';
+import { ConflictException, Injectable } from '@nestjs/common';
+import { CreateOrganizationDto } from './dto/organization.dto';
+import { IOrganizationRepository } from './repositories/organization.repository';
 
 @Injectable()
 export class OrganizationsService {
-  create(createOrganizationDto: CreateOrganizationDto) {
-    return 'This action adds a new organization';
-  }
+  constructor(
+    private readonly organizationRepository: IOrganizationRepository,
+  ) {}
 
-  findAll() {
-    return `This action returns all organizations`;
-  }
+  //TODO: A REGRA DE NEGOCIO E QUE CADA USUARIO DO PODE SER UMA ORGANIZACAO ATRIBUIDA A ELE
+  async create({ name, slug }: CreateOrganizationDto, owner_id: string) {
+    const organizationExists = await this.organizationRepository.findBySlug(
+      slug,
+    );
 
-  findOne(id: number) {
-    return `This action returns a #${id} organization`;
-  }
+    if (organizationExists) {
+      throw new ConflictException('Slug in used');
+    }
 
-  update(id: number, updateOrganizationDto: UpdateOrganizationDto) {
-    return `This action updates a #${id} organization`;
-  }
+    const userOwnerOfOrganization =
+      await this.organizationRepository.findByOwner(owner_id);
 
-  remove(id: number) {
-    return `This action removes a #${id} organization`;
+    if (userOwnerOfOrganization) {
+      throw new ConflictException(
+        'There is already an organization assigned to you',
+      );
+    }
+
+    await this.organizationRepository.create({ name, slug }, owner_id);
   }
 }

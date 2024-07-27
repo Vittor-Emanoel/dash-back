@@ -35,14 +35,14 @@ model User {
 }
 
 model Organization {
-  id   String @id @default(uuid())
-  name String
-  slug String @unique
-
-  owner_id User @relation(fields: [userId], references: [id])
+  id       String @id @default(uuid())
+  name     String
+  slug     String @unique
+  owner_id String @unique
 
   churches Church[]
-  userId   String
+
+  User User @relation(fields: [owner_id], references: [id])
 
   @@map("organizations")
 }
@@ -70,12 +70,13 @@ model UserRole {
 }
 
 model Church {
-  id             String        @id @default(uuid())
-  name           String        @unique
-  userId         String        @unique
+  id             String   @id @default(uuid())
+  name           String   @unique
+  userId         String   @unique
   members        Member[]
-  Organization   Organization? @relation(fields: [organizationId], references: [id])
   organizationId String?
+
+  Organization Organization? @relation(fields: [organizationId], references: [id])
 
   @@map("churchs")
 }
