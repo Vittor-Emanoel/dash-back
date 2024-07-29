@@ -77,10 +77,11 @@ model Church {
   owner_id        String
   description     String?
 
-  members      Member[]
-  address      ChurchAddress[]
-  owner        User?           @relation(fields: [owner_id], references: [id])
-  organization Organization?   @relation(fields: [organization_Id], references: [id])
+  members       Member[]
+  address       ChurchAddress[]
+  owner         User?           @relation(fields: [owner_id], references: [id])
+  organization  Organization?   @relation(fields: [organization_Id], references: [id])
+  MemberAddress MemberAddress[]
 
   @@map("churchs")
 }
@@ -97,18 +98,32 @@ model ChurchAddress {
 }
 
 model Member {
-  id          String @id @default(uuid())
-  fullName    String
-  phone       String @unique
+  id       String @id @default(uuid())
+  fullName String
+  phone    String @unique
+
+  address MemberAddress[]
+
+  office_id String?
+  church_id String?
+
+  Office Office? @relation(fields: [office_id], references: [id])
+  Church Church? @relation(fields: [church_id], references: [id])
+
+  @@map("members")
+}
+
+model MemberAddress {
+  id          String  @id @default(uuid())
   street      String
   houseNumber String
   postalCode  String
-  churchId    String
-  officeId    String
-  church      Church @relation(fields: [churchId], references: [id])
-  office      Office @relation(fields: [officeId], references: [id])
+  Church      Church? @relation(fields: [churchId], references: [id])
+  churchId    String?
+  Member      Member? @relation(fields: [memberId], references: [id])
+  memberId    String?
 
-  @@map("members")
+  @@map("member_address")
 }
 
 model Office {
