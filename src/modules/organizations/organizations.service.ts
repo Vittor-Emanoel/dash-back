@@ -46,6 +46,18 @@ export class OrganizationsService {
     return organization;
   }
 
+  async getStatistic(owner_id: string) {
+    const organization = await this.organizationRepository.stats(owner_id);
+
+    if (!organization) {
+      throw new NotFoundException(
+        'Is not already an organization assigned to you',
+      );
+    }
+
+    return organization;
+  }
+
   async update({ name, slug }: OrganizationDto, owner_id: string) {
     const organizationExists = await this.organizationRepository.findBySlug(
       slug,

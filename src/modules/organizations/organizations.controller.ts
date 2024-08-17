@@ -28,6 +28,12 @@ export class OrganizationsController {
     return this.organizationsService.create(createOrganizationDto, owner_id);
   }
 
+  @Get("/stats")
+  @HttpCode(HttpStatus.OK)
+  stats(@ActiveUserId() owner_id: string) {
+    return this.organizationsService.getStatistic(owner_id);
+  }
+
   @Get()
   @HttpCode(HttpStatus.OK)
   get(@ActiveUserId() owner_id: string) {

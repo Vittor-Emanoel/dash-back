@@ -11,6 +11,7 @@ export abstract class IOrganizationsRepository {
     data: OrganizationDto,
     owner_id: string,
   ): Promise<Organization>;
+  abstract stats(owner_id: string): Promise<IOrganization[]>;
   abstract get(owner_id: string): Promise<IOrganization[]>;
   abstract findBySlug(slug: string): Promise<Organization | null>;
   abstract delete(owner_id: string): Promise<Organization | null>;

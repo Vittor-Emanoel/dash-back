@@ -7,6 +7,7 @@ import { OrganizationsModule } from './modules/organizations/organizations.modul
 import { RolesModule } from './modules/roles/roles.module';
 import { DatabaseModule } from './shared/database/prisma.module';
 import { AuthGuard } from './shared/guards/auth.guard';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { AuthGuard } from './shared/guards/auth.guard';
     RolesModule,
     ChurchsModule,
     MembersModule,
+    UsersModule,
   ],
   controllers: [],
   providers: [

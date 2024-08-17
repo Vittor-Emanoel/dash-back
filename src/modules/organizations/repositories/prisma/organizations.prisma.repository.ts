@@ -43,6 +43,33 @@ export class OrganizationsRepository implements IOrganizationsRepository {
     return organization;
   }
 
+ async stats(owner_id: string): Promise<IOrganization[]> {
+    const stats = await this.prisma.organization.findMany({
+      where: {owner_id},
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        churches: {
+          select: {
+            id: true,
+            name: true,         
+            members: {
+              include: {
+                _count: true
+              }
+            },
+           _count: true 
+          }
+        }
+      }
+    })
+
+    console.log(stats)
+
+    return stats
+  }
+
   async findBySlug(slug: string): Promise<Organization | null> {
     const organization = await this.prisma.organization.findUnique({
       where: { slug },
